@@ -1,0 +1,32 @@
+.home {
+    text-align: center;
+    padding: 20px;
+}
+
+.restaurants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.restaurant-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.restaurant-card:hover {
+    transform: scale(1.05);
+}
+
+.restaurant-card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.restaurant-card h2 {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
