@@ -1,0 +1,51 @@
+/* Style for the add restaurant container */
+.add-restaurant-container {
+    max-width: 600px; /* Set a maximum width */
+    margin: 20px auto; /* Center the form with margin */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the form heading */
+.add-restaurant-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Dark gray color */
+}
+
+/* Style for form labels */
+.add-restaurant-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333; /* Dark gray color */
+}
+
+/* Style for form inputs and textarea */
+.add-restaurant-container input,
+.add-restaurant-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Style for form buttons */
+.add-restaurant-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Hover effect for form buttons */
+.add-restaurant-container button:hover {
+    background-color: #45a049; /* Darker green for hover effect */
+}

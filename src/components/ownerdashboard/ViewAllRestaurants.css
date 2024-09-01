@@ -1,0 +1,44 @@
+/* src/components/ownerdashboard/ViewAllRestaurants.css */
+
+.restaurant-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .restaurant-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .restaurant-card h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .restaurant-card p {
+    margin: 8px 0;
+  }
+  
+  .loading, .error, .no-restaurants {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .loading {
+    color: #007bff;
+  }
+  
+  .error {
+    color: #dc3545;
+  }
+  
+  .no-restaurants {
+    color: #6c757d;
+  }
+  

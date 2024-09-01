@@ -1,0 +1,68 @@
+.add-food-item-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-food-item-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-food-item-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-food-item-container label {
+    margin-bottom: 15px;
+  }
+  
+  .add-food-item-container span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .add-food-item-container input[type="text"],
+  .add-food-item-container input[type="number"],
+  .add-food-item-container textarea,
+  .add-food-item-container select,
+  .add-food-item-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .add-food-item-container button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .add-food-item-container button:hover {
+    background-color: #218838;
+  }
+  
+  .success {
+    color: #28a745;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .error {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+  }
+  

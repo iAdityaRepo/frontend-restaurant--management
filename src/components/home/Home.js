@@ -1,27 +1,59 @@
-import React from 'react';
-import './Home.css'; // Add your CSS styling here
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Home = () => {
-    const restaurants = [
-        { name: 'Restaurant 1', imgSrc: '/path/to/image1.jpg' },
-        { name: 'Restaurant 2', imgSrc: '/path/to/image2.jpg' },
-        { name: 'Restaurant 3', imgSrc: '/path/to/image3.jpg' },
-        // Add more restaurants as needed
-    ];
+  const [restaurants, setRestaurants] = useState([]);
 
-    return (
-        <div className="home">
-            <h1>Choose Your Favorite Restaurant</h1>
-            <div className="restaurants-grid">
-                {restaurants.map((restaurant, index) => (
-                    <div key={index} className="restaurant-card">
-                        <img src={restaurant.imgSrc} alt={restaurant.name} />
-                        <h2>{restaurant.name}</h2>
-                    </div>
-                ))}
+  useEffect(() => {
+    // Fetch all restaurants
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/restaurant/getAll');
+        setRestaurants(response.data);
+      } catch (error) {
+        console.error('Error fetching restaurants', error);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
+
+  // Handle button click
+  const handleClick = (id) => {
+    console.log('Button clicked for restaurant ID:', id);
+    // Implement further requests here if needed
+  };
+
+  return (
+    <div>
+      <h1>Restaurants</h1>
+      {restaurants.length > 0 ? (
+        <div>
+          {restaurants.map((restaurant) => (
+            <div key={restaurant.id} className="restaurant-card">
+              <button
+                className="restaurant-button"
+                onClick={() => handleClick(restaurant.id)}
+              >
+                <div className="restaurant-image-container">
+                  {restaurant.imageData && (
+                    <img
+                      src={`data:image/jpeg;base64,${restaurant.imageData}`}
+                      alt={restaurant.restaurantName}
+                      className="restaurant-image"
+                    />
+                  )}
+                </div>
+                <span className="restaurant-name">{restaurant.restaurantName}</span>
+              </button>
             </div>
+          ))}
         </div>
-    );
+      ) : (
+        <p>No restaurants found</p>
+      )}
+    </div>
+  );
 };
 
 export default Home;
