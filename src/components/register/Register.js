@@ -54,9 +54,18 @@ const Register = () => {
       return;
     }
 
+    // Encode the password in Base64
+    const encodedPassword = btoa(formData.password);
+
+    // Update form data with the encoded password
+    const dataToSend = {
+      ...formData,
+      password: encodedPassword,
+    };
+
     try {
       // Make the POST request
-      const response = await axios.post('http://localhost:8081/user/add', formData, {
+      const response = await axios.post('http://localhost:8081/user/add', dataToSend, {
         headers: {
           'Content-Type': 'application/json',
         },

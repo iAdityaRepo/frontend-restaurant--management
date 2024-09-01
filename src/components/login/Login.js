@@ -10,15 +10,20 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // Encode the password in Base64
+        const encodedPassword = btoa(password);
+
         try {
             // Sending POST request with login data
             const response = await axios.post('http://localhost:8081/user/login', {
                 email: email,
-                password: password // Sending plain password
+                password: encodedPassword // Sending Base64 encoded password
             });
-            setMessage(response.data); // Display the response message
+            // Display the response message from server
+            setMessage(response.data.message || 'Login successful!');
         } catch (error) {
-            setMessage('Error logging in');
+            // Display a detailed error message from server
+            setMessage(error.response?.data?.message || 'Error logging in');
         }
     };
 

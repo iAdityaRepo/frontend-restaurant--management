@@ -1,12 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
-import Cart from './components/Cart';
-import UserList from './components/UserList';
-import Contact from './components/Contact';
+import Navbar from './components/navbar/Navbar';
+import Home from './components/home/Home';
+import Login from './components/login/Login';
+import Register from './components/register/Register'; 
 import './App.css';
 
 function App() {
@@ -18,9 +15,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<UserList />} />   
         </Routes>
       </div>
     </Router>
