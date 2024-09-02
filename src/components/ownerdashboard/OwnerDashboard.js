@@ -43,16 +43,22 @@ const OwnerDashboard = ({ user }) => {
   };
 
   const handleAddFoodItemClick = () => {
-    navigate('/addFoodItem'); // Navigate to the AddFoodItem page
+    navigate('/addFoodItem');
+  };
+
+  const handleViewFoodItemClick = () => {
+    navigate('/viewFoodItem');
+  };
+
+  const handleUpdateFoodItemClick = () => {
+    navigate('/updateFoodItem'); // Assuming the route for updating food items is /updateFoodItem
   };
 
   return (
     <div className="owner-dashboard">
-      <div className="navbar">
-        <button className="my-profile-button" onClick={handleMyProfileClick}>
-          My Profile
-        </button>
-      </div>
+      <button className="my-profile-button" onClick={handleMyProfileClick}>
+        My Profile
+      </button>
 
       {showProfilePanel && (
         <div className={`profile-panel ${showProfilePanel ? 'visible' : ''}`}>
@@ -61,7 +67,6 @@ const OwnerDashboard = ({ user }) => {
               <h2>Profile Information</h2>
               <p><strong>Name:</strong> {profileData.name}</p>
               <p><strong>Email:</strong> {profileData.email}</p>
-              <p><strong>Wallet Balance:</strong> {profileData.walletBalance}</p>
               <p><strong>Phone Number:</strong> {profileData.phoneNo}</p>
               <p><strong>Role:</strong> {profileData.role}</p>
             </div>
@@ -74,6 +79,8 @@ const OwnerDashboard = ({ user }) => {
         <button className="grid-button" onClick={handleAddCategoryClick}>Add Category</button>
         <button className="grid-button" onClick={handleUpdateCategoryClick}>Update Category</button>
         <button className="grid-button" onClick={handleAddFoodItemClick}>Add Food Item</button>
+        <button className="grid-button" onClick={handleUpdateFoodItemClick}>Update Food Item</button> {/* New Button */}
+        <button className="grid-button" onClick={handleViewFoodItemClick}>View Food Item</button>
         <button className="grid-button" onClick={handleViewAllRestaurantsClick}>View All Restaurants</button>
         <button className="grid-button" onClick={handleViewAllRestaurantCategoriesClick}>View All Restaurant Categories</button>
       </div>

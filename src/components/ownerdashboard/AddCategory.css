@@ -1,5 +1,3 @@
-/* AddCategory.css */
-
 /* Style for the Add Category container */
 .add-category-container {
     max-width: 600px;
@@ -10,6 +8,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Style for the form heading */
 .add-category-container h2 {
     margin-bottom: 20px;
     text-align: center;
@@ -17,29 +16,35 @@
     color: #333;
 }
 
+/* Style for form labels */
 .add-category-container label {
-    display: block;
-    margin-bottom: 15px;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center;
+    margin-bottom: 20px; /* Add space between fields */
 }
 
-.add-category-container span {
-    display: block;
+/* Style for form labels spans */
+.add-category-container label span {
+    flex: 1; /* Take up available space */
+    margin-right: 15px; /* Space between label and input */
     font-weight: bold;
-    margin-bottom: 5px;
+    color: #333; /* Dark gray color */
+    min-width: 150px; /* Minimum width for the label */
 }
 
+/* Style for form inputs and select */
 .add-category-container input,
 .add-category-container select {
-    width: 100%;
+    flex: 2; /* Allow inputs and select to take up more space */
+    width: auto; /* Remove width constraint */
     padding: 10px;
-    margin-bottom: 15px;
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 16px;
     box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
-/* Ensure dropdown is styled correctly */
+/* Style for dropdown select */
 .add-category-container select {
     -webkit-appearance: menulist; /* Use default menulist appearance for better compatibility */
     appearance: menulist; /* Fallback to standard appearance */
@@ -55,6 +60,7 @@
     color: #333; /* Ensure option text color is visible */
 }
 
+/* Style for focused select */
 .add-category-container select:focus {
     border-color: #4CAF50;
     outline: none;
@@ -71,6 +77,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 10px; /* Add some space above the button */
 }
 
 .add-category-container button:hover {

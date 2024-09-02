@@ -1,0 +1,82 @@
+/* ViewFoodItem.css */
+
+.view-food-item {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .restaurant-list, .food-item-list {
+    margin: 20px 0;
+  }
+  
+  .restaurant-list table, .food-item-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  .restaurant-list th, .food-item-list th, .restaurant-list td, .food-item-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .restaurant-list th, .food-item-list th {
+    background-color: #f4f4f4;
+    text-align: left;
+  }
+  
+  .restaurant-list td, .food-item-list td {
+    text-align: left;
+  }
+  
+  .restaurant-list button, .food-item-list button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .restaurant-list button:hover, .food-item-list button:hover {
+    background-color: #45a049;
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .error {
+    text-align: center;
+    font-size: 18px;
+    color: red;
+  }
+  
+  @media (max-width: 768px) {
+    .restaurant-list table, .food-item-list table {
+      width: 100%;
+      font-size: 14px;
+    }
+  
+    .restaurant-list th, .food-item-list th, .restaurant-list td, .food-item-list td {
+      padding: 6px;
+    }
+  
+    .restaurant-list button, .food-item-list button {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  }
+  

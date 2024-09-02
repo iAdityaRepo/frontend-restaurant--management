@@ -11,7 +11,9 @@ import ViewAllRestaurants from './components/ownerdashboard/ViewAllRestaurants';
 import AddCategory from './components/ownerdashboard/AddCategory';
 import ViewAllRestaurantCategories from './components/ownerdashboard/ViewAllRestaurantCategories';
 import UpdateCategory from './components/ownerdashboard/UpdateCategory';
-import AddFoodItem from './components/ownerdashboard/AddFoodItem'; // Import the AddFoodItem component
+import AddFoodItem from './components/ownerdashboard/AddFoodItem';
+import ViewFoodItem from './components/ownerdashboard/ViewFoodItem';
+import UpdateFoodItem from './components/ownerdashboard/UpdateFoodItem'; // Import the UpdateFoodItem component
 
 import './App.css';
 
@@ -61,6 +63,14 @@ function App() {
         <Route
           path="/addFoodItem"
           element={loggedInUser && loggedInUser.role === 'OWNER' ? <AddFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/viewFoodItem"
+          element={loggedInUser ? <ViewFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/updateFoodItem"
+          element={loggedInUser && loggedInUser.role === 'OWNER' ? <UpdateFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>
