@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-
-=======
-Hello There
->>>>>>> d1442e2 (initializing frontend react project)

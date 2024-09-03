@@ -1,0 +1,113 @@
+/* Style for the Add Category container */
+.add-category-container {
+    max-width: 600px;
+    margin: 20px auto; /* Center the form with margin */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the form heading */
+.add-category-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style for form labels */
+.add-category-container label {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center;
+    margin-bottom: 20px; /* Add space between fields */
+}
+
+/* Style for form labels spans */
+.add-category-container label span {
+    flex: 1; /* Take up available space */
+    margin-right: 15px; /* Space between label and input */
+    font-weight: bold;
+    color: #333; /* Dark gray color */
+    min-width: 150px; /* Minimum width for the label */
+}
+
+/* Style for form inputs and select */
+.add-category-container input,
+.add-category-container select {
+    flex: 2; /* Allow inputs and select to take up more space */
+    width: auto; /* Remove width constraint */
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* Style for dropdown select */
+.add-category-container select {
+    -webkit-appearance: menulist; /* Use default menulist appearance for better compatibility */
+    appearance: menulist; /* Fallback to standard appearance */
+    background: white; /* Ensure dropdown background is white */
+    color: #333; /* Ensure text color contrasts well */
+    visibility: visible; /* Ensure visibility of dropdown list */
+    z-index: 1; /* Ensure dropdown is above other elements */
+}
+
+/* Ensure dropdown options are visible and accessible */
+.add-category-container select option {
+    background: white; /* Ensure option background is white */
+    color: #333; /* Ensure option text color is visible */
+}
+
+/* Style for focused select */
+.add-category-container select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the button */
+.add-category-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; /* Add some space above the button */
+}
+
+.add-category-container button:hover {
+    background-color: #45a049;
+}
+
+/* Style for error and success messages */
+.add-category-container .error,
+.add-category-container .success {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.add-category-container .error {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
+}
+
+.add-category-container .success {
+    color: #5bc0de;
+    background-color: #d9edf7;
+    border: 1px solid #5bc0de;
+}
+
+/* Style for loading state */
+.add-category-container .loading {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
