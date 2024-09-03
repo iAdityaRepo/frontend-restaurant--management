@@ -26,22 +26,21 @@ h1 {
   align-items: center; /* Align items vertically */
   margin-bottom: 15px;
   width: 100%; /* Ensure form groups take full width */
-  gap: 10px; /* Space between label and input */
 }
 
 /* Label styling */
 .form-group label {
-  flex: 1; /* Label takes up 1 part of the space */
+  flex: 0 0 150px; /* Set a fixed width for labels, adjust as needed */
   margin-bottom: 0;
   font-weight: bold; /* Makes labels stand out */
   text-align: right; /* Align text to the right for better visual alignment */
-  min-width: 120px; /* Ensure labels have enough width for alignment */
+  white-space: nowrap; /* Prevent label from wrapping to a new line */
 }
 
 /* Input and select styling */
 .form-group input, 
 .form-group select {
-  flex: 2; /* Input takes up 2 parts of the space */
+  flex: 1; /* Input takes up the remaining space */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

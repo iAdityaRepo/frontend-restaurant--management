@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AddFoodItem.css';
 
-const AddFoodItem = () => {
+const AddFoodItem = ({ userId }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState('');
@@ -16,8 +16,12 @@ const AddFoodItem = () => {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    fetchRestaurants();
-  }, []);
+    if (userId) {
+      fetchRestaurants(userId);
+    } else {
+      setError('User ID is not available.');
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (selectedRestaurant) {
@@ -25,9 +29,9 @@ const AddFoodItem = () => {
     }
   }, [selectedRestaurant]);
 
-  const fetchRestaurants = async () => {
+  const fetchRestaurants = async (userId) => {
     try {
-      const response = await axios.get('http://localhost:8080/restaurant/getAll');
+      const response = await axios.get(`http://localhost:8080/restaurant/get/${userId}`);
       setRestaurants(response.data);
     } catch (error) {
       console.error('There was an error fetching the restaurants!', error);

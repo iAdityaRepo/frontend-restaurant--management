@@ -8,6 +8,7 @@ const Register = () => {
     email: '',
     phoneNo: '',
     password: '',
+    confirmPassword: '', // New field
     role: 'USER', // Default role
   });
   const [error, setError] = useState(null);
@@ -22,23 +23,49 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    const { name, email, phoneNo } = formData;
-
+    const { name, email, phoneNo, password, confirmPassword } = formData;
+  
+    // Name Validation
+    if (!name.trim()) {
+      setError('Name cannot be blank.');
+      return false;
+    }
+  
     if (name.trim().length < 3) {
       setError('Name must be at least 3 characters long.');
       return false;
     }
-
-    if (!email.endsWith('@gmail.com')) {
-      setError('Email must end with @gmail.com.');
+  
+    if (!/^[a-zA-Z]+(?: [a-zA-Z]+)*$/.test(name)) {
+      setError('Name can only contain alphabets and single spaces between words.');
       return false;
     }
-
-    if (!/^\d{10}$/.test(phoneNo)) {
-      setError('Phone number must be a 10-digit number.');
+  
+    // Email Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|nuclesteq\.com)$/;
+    if (!emailRegex.test(email)) {
+      setError('Email must end with @email.com or @nuclesteq.com.');
       return false;
     }
-
+  
+    const localPart = email.split('@')[0];
+    if (/^\d+$/.test(localPart)) {
+      setError('Email local part cannot be just numbers.');
+      return false;
+    }
+  
+    // Phone Number Validation
+    if (!/^[6789]\d{9}$/.test(phoneNo)) {
+      setError('Phone number must be a 10-digit number starting with 6, 7, 8, or 9.');
+      return false;
+    }
+  
+    // Password Validation
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return false;
+    }
+  
     return true;
   };
 
@@ -78,6 +105,7 @@ const Register = () => {
         email: '',
         phoneNo: '',
         password: '',
+        confirmPassword: '', // Reset confirmPassword
         role: 'USER',
       });
     } catch (error) {
@@ -133,6 +161,17 @@ const Register = () => {
             id="password"
             name="password"
             value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
