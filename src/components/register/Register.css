@@ -1,6 +1,6 @@
 /* Container styling */
 .register-container {
-  max-width: 500px; /* Adjust width as needed */
+  max-width: 700px; /* Adjust width as needed */
   margin: 50px auto; /* Center the form vertically and horizontally */
   padding: 20px;
   border: 1px solid #ddd;
@@ -19,34 +19,53 @@ h1 {
   font-size: 24px;
   color: #333; /* Darker text for better readability */
 }
-
+.form{
+  width: 100%;
+  padding: 20px;
+}
 /* Flex container for form groups */
 .form-group {
   display: flex;
-  align-items: center; /* Align items vertically */
-  margin-bottom: 15px;
+  align-items: center; /* Center items vertically */
+  margin-bottom: 25px; /* Space between form groups */
   width: 100%; /* Ensure form groups take full width */
+  position: relative; /* Allow positioning of error message */
+  justify-content: center;
 }
-
 /* Label styling */
 .form-group label {
-  flex: 0 0 150px; /* Set a fixed width for labels, adjust as needed */
-  margin-bottom: 0;
   font-weight: bold; /* Makes labels stand out */
-  text-align: right; /* Align text to the right for better visual alignment */
-  white-space: nowrap; /* Prevent label from wrapping to a new line */
+  color: #555; /* Darker color for better readability */
+  margin-right: 10px; /* Space between label and input */
+  text-align: right; /* Align text to the right */
 }
 
 /* Input and select styling */
 .form-group input, 
 .form-group select {
-  flex: 1; /* Input takes up the remaining space */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px; /* Adjust font size for better readability */
-  width: 100%; /* Ensure inputs take full width of the flex container */
   box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 14px; /* Smaller font size for error messages */
+  position: absolute; /* Position error message absolutely within .form-group */
+  left: 30%; /* Align error message to the right of the label */
+  width: 70%; /* Match width of the input field */
+  top: 80%; /* Center error message vertically */
+  transform: translateY(-50%); /* Center error message vertically */
+}
+/* Success message styling */
+.success {
+  color: green;
+  font-size: 16px; /* Adjust font size for messages */
+  text-align: center;
+  margin: 10px 0;
 }
 
 /* Button styling */
@@ -65,18 +84,9 @@ button {
 button:hover {
   background-color: #218838;
 }
-
-/* Error and success messages styling */
-.error, .success {
-  text-align: center;
-  margin: 10px 0;
-  font-size: 16px; /* Adjust font size for messages */
+.label{
+  width: 30%;
 }
-
-.error {
-  color: red;
-}
-
-.success {
-  color: green;
+.input{
+  width: 70%;
 }

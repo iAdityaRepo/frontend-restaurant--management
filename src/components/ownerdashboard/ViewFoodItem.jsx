@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ViewFoodItem.css'; // You might need to create this CSS file
+import './ViewFoodItem.css';
 
 const ViewFoodItem = ({ userId }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -14,7 +14,7 @@ const ViewFoodItem = ({ userId }) => {
     if (userId) {
       axios.get(`http://localhost:8080/restaurant/get/${userId}`)
         .then(response => {
-          console.log('Restaurants API Response:', response.data); // Debugging log
+          console.log('Restaurants API Response:', response.data);
           if (Array.isArray(response.data)) {
             setRestaurants(response.data);
           } else {
@@ -39,7 +39,7 @@ const ViewFoodItem = ({ userId }) => {
       setFoodItemsLoading(true);
       axios.get(`http://localhost:8080/foodItem/getAll/${selectedRestaurantId}`)
         .then(response => {
-          console.log('Food Items API Response:', response.data); // Debugging log
+          console.log('Food Items API Response:', response.data);
           if (Array.isArray(response.data)) {
             setFoodItems(response.data);
           } else {
@@ -107,6 +107,7 @@ const ViewFoodItem = ({ userId }) => {
                   <th>Category</th>
                   <th>Price</th>
                   <th>Availability</th>
+                  <th>Image</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,6 +118,17 @@ const ViewFoodItem = ({ userId }) => {
                     <td>{item.categoryName || 'No category available'}</td>
                     <td>{item.price != null ? `$${item.price.toFixed(2)}` : 'No price available'}</td>
                     <td>{item.isAvailable ? 'Available' : 'Not Available'}</td>
+                    <td>
+                      {item.imageData ? (
+                        <img
+                          src={`data:image/jpeg;base64,${item.imageData}`}
+                          alt={item.foodName}
+                          className="food-item-image"
+                        />
+                      ) : (
+                        'No image available'
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

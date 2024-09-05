@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const OwnerDashboard = ({ user }) => {
   const [profileData, setProfileData] = useState(null);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
   const navigate = useNavigate();
 
   const handleMyProfileClick = () => {
@@ -20,6 +21,10 @@ const OwnerDashboard = ({ user }) => {
           console.error("There was an error fetching the profile!", error);
         });
     }
+  };
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
   };
 
   const handleAddRestaurantClick = () => {
@@ -38,10 +43,7 @@ const OwnerDashboard = ({ user }) => {
     navigate('/viewAllRestaurantCategories');
   };
 
-  const handleUpdateCategoryClick = () => {
-    navigate('/updateCategory');
-  };
-
+  
   const handleAddFoodItemClick = () => {
     navigate('/addFoodItem');
   };
@@ -51,14 +53,45 @@ const OwnerDashboard = ({ user }) => {
   };
 
   const handleUpdateFoodItemClick = () => {
-    navigate('/updateFoodItem'); // Assuming the route for updating food items is /updateFoodItem
+    navigate('/updateFoodItem');
   };
 
   return (
     <div className="owner-dashboard">
-      <button className="my-profile-button" onClick={handleMyProfileClick}>
-        My Profile
-      </button>
+      <div className="sidebar">
+        <button className="sidebar-button" onClick={handleMyProfileClick}>My Profile</button>
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('restaurant')}>
+          Restaurant
+        </button>
+        {activeMenu === 'restaurant' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={handleAddRestaurantClick}>Add Restaurant</button>
+            <button className="submenu-button" onClick={handleViewAllRestaurantsClick}>View All Restaurants</button>
+          </div>
+        )}
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('category')}>
+          Category
+        </button>
+        {activeMenu === 'category' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={handleAddCategoryClick}>Add Category</button>
+            <button className="submenu-button" onClick={handleViewAllRestaurantCategoriesClick}>View All Categories</button>
+          </div>
+        )}
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('foodItem')}>
+          Food Item
+        </button>
+        {activeMenu === 'foodItem' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={handleAddFoodItemClick}>Add Food Item</button>
+            <button className="submenu-button" onClick={handleUpdateFoodItemClick}>Update Food Item</button>
+            <button className="submenu-button" onClick={handleViewFoodItemClick}>View Food Items</button>
+          </div>
+        )}
+      </div>
 
       {showProfilePanel && (
         <div className={`profile-panel ${showProfilePanel ? 'visible' : ''}`}>
@@ -73,17 +106,6 @@ const OwnerDashboard = ({ user }) => {
           )}
         </div>
       )}
-
-      <div className="grid-container">
-        <button className="grid-button" onClick={handleAddRestaurantClick}>Add Restaurant</button>
-        <button className="grid-button" onClick={handleAddCategoryClick}>Add Category</button>
-        <button className="grid-button" onClick={handleUpdateCategoryClick}>Update Category</button>
-        <button className="grid-button" onClick={handleAddFoodItemClick}>Add Food Item</button>
-        <button className="grid-button" onClick={handleUpdateFoodItemClick}>Update Food Item</button> {/* New Button */}
-        <button className="grid-button" onClick={handleViewFoodItemClick}>View Food Item</button>
-        <button className="grid-button" onClick={handleViewAllRestaurantsClick}>View All Restaurants</button>
-        <button className="grid-button" onClick={handleViewAllRestaurantCategoriesClick}>View All Restaurant Categories</button>
-      </div>
     </div>
   );
 };

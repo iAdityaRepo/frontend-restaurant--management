@@ -49,8 +49,47 @@ const AddFoodItem = ({ userId }) => {
     }
   };
 
+  const validateForm = () => {
+    if (!foodName.trim()) {
+      setError('Food name cannot be blank');
+      return false;
+    }
+    if (foodName.length < 3) {
+      setError('Food name must be at least 3 characters long');
+      return false;
+    }
+    if (!/^[a-zA-Z ]+$/.test(foodName)) {
+      setError('Food name must contain only alphabets and spaces');
+      return false;
+    }
+    if (!selectedRestaurant) {
+      setError('Restaurant ID cannot be null');
+      return false;
+    }
+    if (!description.trim()) {
+      setError('Description cannot be blank');
+      return false;
+    }
+    if (!selectedCategory) {
+      setError('Category ID cannot be null');
+      return false;
+    }
+    if (price === '' || price < 0) {
+      setError('Price cannot be null or negative');
+      return false;
+    }
+    if (isAvailable === null) {
+      setError('Availability status cannot be null');
+      return false;
+    }
+    setError('');
+    return true;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateForm()) return;
 
     const formData = new FormData();
     formData.append('foodName', foodName);
@@ -73,15 +112,19 @@ const AddFoodItem = ({ userId }) => {
 
       if (response.status === 201) {
         setSuccess('Food item successfully added.');
-        setError('');
+        setFoodName('');
+        setSelectedRestaurant('');
+        setDescription('');
+        setSelectedCategory('');
+        setPrice('');
+        setImageFile(null);
+        setIsAvailable(true);
       } else {
         setError('Failed to add food item.');
-        setSuccess('');
       }
     } catch (error) {
       console.error('There was an error adding the food item!', error);
       setError('Failed to add food item.');
-      setSuccess('');
     }
   };
 

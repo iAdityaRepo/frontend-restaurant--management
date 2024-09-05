@@ -29,7 +29,16 @@ const AddCategory = ({ userId }) => {
   }, [userId]);
 
   const handleCategoryNameChange = (e) => {
-    setCategoryName(e.target.value);
+    const value = e.target.value;
+    const namePattern = /^[a-zA-Z ]+$/;
+
+    if (value === '' || !namePattern.test(value)) {
+      setError('Category name must contain only alphabets and spaces.');
+    } else {
+      setError('');
+    }
+
+    setCategoryName(value);
   };
 
   const handleRestaurantChange = (e) => {
@@ -41,6 +50,22 @@ const AddCategory = ({ userId }) => {
 
     if (!userId) {
       setError('User ID is not available.');
+      return;
+    }
+
+    if (categoryName.trim() === '') {
+      setError('Category name cannot be blank.');
+      return;
+    }
+
+    if (categoryName.length < 3) {
+      setError('Category name must be at least 3 characters long.');
+      return;
+    }
+
+    const namePattern = /^[a-zA-Z ]+$/;
+    if (!namePattern.test(categoryName)) {
+      setError('Category name must contain only alphabets and spaces.');
       return;
     }
 
@@ -95,7 +120,7 @@ const AddCategory = ({ userId }) => {
             {restaurants.length > 0 ? (
               restaurants.map(restaurant => (
                 <option key={restaurant.id} value={restaurant.id}>
-                  {restaurant.restaurantName} {/* Updated field name */}
+                  {restaurant.restaurantName}
                 </option>
               ))
             ) : (

@@ -1,44 +1,53 @@
-/* src/components/ownerdashboard/ViewAllRestaurants.css */
-
+/* Container for the list of restaurants */
 .restaurant-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .restaurant-card {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .restaurant-card h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
-  }
-  
-  .restaurant-card p {
-    margin: 8px 0;
-  }
-  
-  .loading, .error, .no-restaurants {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .loading {
-    color: #007bff;
-  }
-  
-  .error {
-    color: #dc3545;
-  }
-  
-  .no-restaurants {
-    color: #6c757d;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center cards horizontally */
+}
+
+/* Individual restaurant card styling */
+.restaurant-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Adjust width as needed */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Restaurant image styling */
+.restaurant-image {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Styling for cases where no image is available */
+.no-image {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #888;
+}
+
+/* Heading styling */
+.restaurant-card h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Paragraph styling */
+.restaurant-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}

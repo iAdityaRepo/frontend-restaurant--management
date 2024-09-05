@@ -1,9 +1,7 @@
-// src/components/ViewAllRestaurants.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewAllRestaurants.css';
 
-// Assuming userId is passed as a prop or retrieved from context/state
 const ViewAllRestaurants = ({ userId }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +9,6 @@ const ViewAllRestaurants = ({ userId }) => {
 
   useEffect(() => {
     if (userId) {
-      // Replace the URL with your actual endpoint
       axios.get(`http://localhost:8080/restaurant/get/${userId}`)
         .then(response => {
           setRestaurants(response.data);
@@ -35,6 +32,15 @@ const ViewAllRestaurants = ({ userId }) => {
     <div className="restaurant-list">
       {restaurants.map(restaurant => (
         <div key={restaurant.id} className="restaurant-card">
+          {restaurant.imageData ? (
+            <img 
+              src={`data:image/jpeg;base64,${restaurant.imageData}`} 
+              alt={restaurant.restaurantName} 
+              className="restaurant-image" 
+            />
+          ) : (
+            <div className="no-image">No Image</div>
+          )}
           <h2>{restaurant.restaurantName}</h2>
           <p><strong>Address:</strong> {restaurant.address}</p>
           <p><strong>Contact:</strong> {restaurant.contactNumber}</p>
