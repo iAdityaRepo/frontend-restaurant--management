@@ -1,79 +1,92 @@
-/* Style for the add restaurant container */
+/* Container styling */
 .add-restaurant-container {
-    max-width: 600px; /* Set a maximum width */
-    margin: 20px auto; /* Center the form with margin */
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Style for the form heading */
-.add-restaurant-container h2 {
+  }
+  
+  /* Header styling */
+  .add-restaurant-container h2 {
     margin-bottom: 20px;
     text-align: center;
-    color: #333; /* Dark gray color */
-}
-
-/* Style for form labels */
-.add-restaurant-container label {
-    display: flex; /* Use flexbox for horizontal alignment */
-    align-items: center;
-    margin-bottom: 15px; /* Add space between fields */
+    color: #333;
+  }
+  
+  /* Form styling */
+  .form {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Flex container for form groups */
+  .form-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    width: 100%;
+    position: relative; /* Position relative for the error message to be positioned within the group */
+  }
+  
+  /* Label styling */
+  .form-group .label {
+    width: 30%;
+    text-align: right;
     font-weight: bold;
-    color: #333; /* Dark gray color */
-}
-
-/* Style for form labels spans */
-.add-restaurant-container label span {
-    flex: 1; /* Take up available space */
-    margin-right: 10px; /* Space between label and input */
-    font-weight: normal; /* Normal weight for the span */
-    color: #333; /* Dark gray color */
-    min-width: 120px; /* Minimum width for the label */
-}
-
-/* Style for form inputs and textarea */
-.add-restaurant-container input,
-.add-restaurant-container textarea {
-    flex: 2; /* Allow inputs to take up more space */
-    width: auto; /* Remove width constraint */
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px; /* Adjust margin to align with label */
-}
-
-/* Style for form buttons */
-.add-restaurant-container button {
+    color: #555;
+    margin-right: 10px;
+  }
+  
+  /* Input container */
+  .form-group .input {
+    width: 70%;
+    position: relative; /* Allows error message to be positioned over input fields */
+    padding-bottom: 25px; /* Ensure space below for error message */
+  }
+  
+  /* Input and textarea styling */
+  .form-group input,
+  .form-group textarea {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50; /* Green */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Error message styling */
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  /* Success message styling */
+  .success {
+    color: green;
+    font-size: 16px;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px; /* Add some space above the button */
-}
-
-/* Hover effect for form buttons */
-.add-restaurant-container button:hover {
-    background-color: #45a049; /* Darker green for hover effect */
-}
-
-/* Style for success and error messages */
-.add-restaurant-container .success,
-.add-restaurant-container .error {
-    text-align: center;
-    font-weight: bold;
     margin-top: 10px;
-}
-
-.add-restaurant-container .success {
-    color: #4CAF50; /* Green color for success message */
-}
-
-.add-restaurant-container .error {
-    color: #f44336; /* Red color for error message */
-}
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

@@ -1,15 +1,18 @@
+// src/components/viewallrestaurants/ViewAllRestaurants.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../../UserContext'; // Import useUser hook
 import './ViewAllRestaurants.css';
 
-const ViewAllRestaurants = ({ userId }) => {
+const ViewAllRestaurants = () => {
+  const { loggedInUser } = useUser(); // Access logged-in user from context
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (userId) {
-      axios.get(`http://localhost:8080/restaurant/get/${userId}`)
+    if (loggedInUser && loggedInUser.id) {
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
         .then(response => {
           setRestaurants(response.data);
           setLoading(false);
@@ -22,7 +25,7 @@ const ViewAllRestaurants = ({ userId }) => {
       setError('User ID is missing.');
       setLoading(false);
     }
-  }, [userId]);
+  }, [loggedInUser]);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">Error: {error}</div>;

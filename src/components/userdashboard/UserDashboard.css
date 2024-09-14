@@ -1,69 +1,113 @@
-/* UserDashboard.css */
-
-/* Style for the main container */
 .user-dashboard {
+    display: flex; /* Use flex layout to position the sidebar and content */
     padding: 20px;
-    position: relative; /* Ensure the profile panel positions relative to this container */
-  }
-  
-  /* Style for the navbar */
-  .navbar {
-    display: flex;
-    justify-content: space-between; /* Space out items with space between */
-    align-items: center; /* Center items vertically */
-    padding: 10px 20px; /* Add some padding */
-  }
-  
-  /* Style for the MyProfile button */
-  .my-profile-button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 8px 16px; /* Smaller padding */
-    font-size: 18px; /* Smaller font size */
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition */
-    width: 150px; /* Adjust the width as needed */
-    height: 40px; /* Ensure button has a proper height */
-    text-align: center; /* Center text inside the button */
-    position: absolute; /* Position it absolutely within the container */
-    top: 20px; /* Adjust the top position as needed */
-    right: 20px; /* Align it to the right side */
-    box-shadow: none; /* Remove shadow if any */
-  }
-  
-  /* Hover effect for the MyProfile button */
-  .my-profile-button:hover {
-    background-color: #45a049; /* Darker green for hover effect */
-  }
-  
-  /* Style for the profile panel */
-  .profile-panel {
-    position: absolute; /* Position relative to the container */
-    top: 90px; /* Position it below the button */
-    right: 20px; /* Align it to the right edge */
-    width: 300px; /* Set a fixed width for the profile panel */
-    background-color: #f9f9f9;
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 4px;
+}
+
+.sidebar {
+    width: 200px; /* Adjust width as needed */
+    background-color: #f8f9fa;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
-    z-index: 1000; /* Ensure it appears above other content */
-    display: none; /* Initially hidden */
-  }
-  
-  /* Show the profile panel when it's visible */
-  .profile-panel.visible {
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-button {
     display: block;
-  }
-  
-  /* Style for the profile details section */
-  .profile-details {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sidebar-button:hover {
+    background-color: #0056b3;
+}
+
+.content {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 20px;
+}
+
+.profile-panel {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    display: none;
+}
+
+.profile-panel.visible {
+    display: block;
+}
+
+.orders-panel {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    display: none;
+}
+
+.orders-panel.visible {
+    display: block;
+}
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
+    gap: 15px; /* Space between cards */
+}
+
+.order-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.order-card h3 {
     margin-top: 0;
-  }
-  
-  .profile-details p {
-    margin: 8px 0;
-  }
-  
+}
+
+.order-details {
+    margin: 10px 0;
+}
+
+.order-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-details li {
+    margin: 5px 0;
+}
+
+.total-amount {
+    font-weight: bold;
+}
+
+.order-actions {
+    margin-top: 10px;
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+
+.fixed-status {
+    color: #28a745;
+    font-weight: bold;
+}

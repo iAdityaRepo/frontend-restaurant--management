@@ -1,0 +1,40 @@
+.view-menu {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.view-menu h3 {
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.view-menu table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.view-menu table th, .view-menu table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.view-menu table th {
+  background-color: #f2f2f2;
+}
+
+.food-item-image {
+  width: 100px;
+  height: auto;
+}
+
+.loading {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin: 20px 0;
+}

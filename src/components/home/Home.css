@@ -1,65 +1,112 @@
-/* Container for the grid layout */
+.home-container {
+  text-align: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.image-slider {
+  position: relative; /* To position arrows inside */
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-track {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-track::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for a cleaner look */
+}
+
+.slider-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 10px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  font-size: 24px;
+  border-radius: 50%; /* Rounded shape for arrows */
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+/* Restaurants grid below slider */
 .restaurant-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px; /* Space between cards */
-    padding: 16px;
-    box-sizing: border-box;
-  }
-  
-  /* Card styling */
-  .restaurant-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    text-align: center;
-    width: 200px; /* Fixed width for the card */
-    height: auto; /* Height will adjust based on content */
-    max-width: 100%; /* Prevent card from exceeding container width */
-  }
-  
-  .restaurant-card:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Button styling */
-  .restaurant-button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    display: block;
-  }
-  
-  /* Container for the image */
-  .restaurant-image-container {
-    width: 100%; /* Full width of the card */
-    height: 120px; /* Adjust height for better appearance */
-    overflow: hidden;
-    border-bottom: 1px solid #ddd; /* Subtle border to separate image from content */
-    background-color: #f5f5f5; /* Light gray background color */
-  }
-  
-  /* Image styling */
-  .restaurant-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the container */
-    display: block;
-  }
-  
-  /* Restaurant name styling */
-  .restaurant-name {
-    margin-top: 8px;
-    font-weight: bold;
-    font-size: 1rem; /* Adjust font size as needed */
-    color: #333; /* Dark gray color for the text */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.restaurant-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.restaurant-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.restaurant-info {
+  text-transform: uppercase; /* Make all text in restaurant-info uppercase */
+}
+
+.restaurant-info h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.restaurant-info p {
+  margin: 5px 0;
+}
+
+/* Optional: Style for view menu button if needed */
+.view-menu-button {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners for the button */
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.view-menu-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}

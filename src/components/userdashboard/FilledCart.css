@@ -1,0 +1,73 @@
+/* src/components/userdashboard/FilledCart.css */
+
+.filled-cart-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .filled-cart-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .filled-cart-items {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .filled-cart-items th, .filled-cart-items td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .filled-cart-items th {
+    background-color: #f4f4f4;
+  }
+  
+  .filled-cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .filled-cart-item-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .filled-cart-item-price {
+    font-size: 16px;
+  }
+  
+  .filled-cart-total {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .place-order-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .place-order-button:hover {
+    background-color: #218838;
+  }
+  
+  .empty-cart-message {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+  }
+  

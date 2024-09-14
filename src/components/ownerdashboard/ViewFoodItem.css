@@ -1,5 +1,3 @@
-/* ViewFoodItem.css */
-
 .view-food-item {
   font-family: Arial, sans-serif;
   margin: 20px;
@@ -10,78 +8,106 @@ h2 {
   margin-bottom: 20px;
 }
 
-.restaurant-list, .food-item-list {
+.restaurant-grid {
   margin: 20px 0;
 }
 
-.restaurant-list table, .food-item-list table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 auto;
+.restaurant-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Center align the cards */
 }
 
-.restaurant-list th, .food-item-list th, 
-.restaurant-list td, .food-item-list td {
+.restaurant-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 250px; /* Adjust width to fit better in grid */
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.restaurant-card:hover {
+  transform: scale(1.05);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.no-image {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+  color: #777;
+  font-style: italic;
+}
+
+.restaurant-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.restaurant-info h4 {
+  margin: 10px 0;
+}
+
+.view-food-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-food-button:hover {
+  background-color: #0056b3;
+}
+
+/* Food item table styling */
+.food-item-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.food-item-list th, .food-item-list td {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-.restaurant-list th, .food-item-list th {
+.food-item-list th {
   background-color: #f4f4f4;
   text-align: left;
 }
 
-.restaurant-list td, .food-item-list td {
+.food-item-list td {
   text-align: left;
 }
 
-/* Uniform column width for image */
-.food-item-list .image-column {
-  width: 120px; /* Fixed width for image column */
-}
-
-/* Ensure images fit within their fixed column size and maintain aspect ratio */
 .food-item-image {
-  width: 100%;
-  height: auto; /* Maintain aspect ratio */
-  max-height: 120px; /* Ensure images do not exceed the column height */
-  object-fit: cover; /* Cover the area without distortion */
+  width: 100px;
+  height: auto;
+  max-height: 100px;
+  object-fit: cover;
   border-radius: 4px;
-}
-
-/* Maintain uniformity in row heights */
-.food-item-list tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* Ensure consistent row height */
-}
-
-.food-item-list td {
-  vertical-align: middle; /* Align content vertically */
 }
 
 /* Adjust for smaller screens */
 @media (max-width: 768px) {
-  .restaurant-list table, .food-item-list table {
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .restaurant-list th, .food-item-list th, 
-  .restaurant-list td, .food-item-list td {
-    padding: 6px;
-  }
-
-  .restaurant-list button, .food-item-list button {
-    padding: 6px 12px;
-    font-size: 12px;
+  .restaurant-card {
+    width: 100%; /* Full width on smaller screens */
   }
 
   .food-item-image {
-    max-height: 80px; /* Adjust max height for smaller screens */
-  }
-
-  .food-item-list .image-column {
-    width: 80px; /* Adjust width for smaller screens */
+    max-height: 80px;
   }
 }

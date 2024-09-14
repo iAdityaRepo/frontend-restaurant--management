@@ -24,23 +24,25 @@ const Register = () => {
 
   const validateForm = () => {
     const errors = {};
-    const { name, email, phoneNo, password, confirmPassword } = formData;
+    let { name, email, phoneNo, password, confirmPassword } = formData;
 
     // Normalize and trim name
-    const normalizedName = name.trim().replace(/\s+/g, ' ');
+    name = name.trim().replace(/\s+/g, ' '); // This will format the name with single spaces only
 
     // Name Validation
-    if (!normalizedName) {
+    if (!name) {
       errors.name = 'Name cannot be blank.';
-    } else if (normalizedName.length < 3) {
+    } else if (name.length < 3) {
       errors.name = 'Name must be at least 3 characters long.';
-    } else if (!/^[a-zA-Z]+(?: [a-zA-Z]+)*$/.test(normalizedName)) {
+    } else if (!/^[a-zA-Z]+(?: [a-zA-Z]+)*$/.test(name)) {
       errors.name = 'Name can only contain alphabets and single spaces between words.';
     }
 
     // Email Validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@(?:gmail\.com|nuclesteq\.com)$/;
-    if (!emailRegex.test(email)) {
+    if (!email) {
+      errors.email = 'Email cannot be blank.';
+    } else if (!emailRegex.test(email)) {
       errors.email = 'Email must end with @gmail.com or @nuclesteq.com.';
     } else {
       const localPart = email.split('@')[0];
@@ -50,12 +52,24 @@ const Register = () => {
     }
 
     // Phone Number Validation
-    if (!/^[6789]\d{9}$/.test(phoneNo)) {
+    if (!phoneNo) {
+      errors.phoneNo = 'Phone number cannot be blank.';
+    } else if (!/^[6789]\d{9}$/.test(phoneNo)) {
       errors.phoneNo = 'Phone number must be a 10-digit number starting with 6, 7, 8, or 9.';
     }
 
     // Password Validation
-    if (password !== confirmPassword) {
+    if (!password) {
+      errors.password = 'Password cannot be blank.';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{3,}$/.test(password)) {
+      console.log(formData.password);
+
+      errors.password = 'Password must be at least 3 characters long, contain at least one uppercase letter, one lowercase letter, and one digit.';
+    }
+
+    if (!confirmPassword) {
+      errors.confirmPassword = 'Confirm Password cannot be blank.';
+    } else if (password !== confirmPassword) {
       errors.confirmPassword = 'Passwords do not match.';
     }
 
@@ -77,15 +91,16 @@ const Register = () => {
     // Encode the password in Base64
     const encodedPassword = btoa(formData.password);
 
-    // Update form data with the encoded password
+    // Update form data with the encoded password and formatted name
     const dataToSend = {
       ...formData,
+      name: formData.name.trim().replace(/\s+/g, ' '), // Send formatted name
       password: encodedPassword,
     };
 
     try {
       // Make the POST request
-      const response = await axios.post('http://localhost:8081/user/add', dataToSend, {
+      const response = await axios.post('http://localhost:8080/user/add', dataToSend, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -110,93 +125,90 @@ const Register = () => {
 
   return (
     <div className="register-container">
-  <h1>Register</h1>
-  {errors.general && <p className="error">{errors.general}</p>}
-  {success && <p className="success">{success}</p>}
-  <form onSubmit={handleSubmit} className='form'>
-    <div className="form-group">
-      <div className='label'><label htmlFor="name" >Name:</label></div>
-      <div  className='input'><input
-        type="text"
-        id="name"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-       
-      />
-      {errors.name && <p className="error">{errors.name}</p>}
-      </div>
+      <h1>Register</h1>
+      {errors.general && <p className="error">{errors.general}</p>}
+      {success && <p className="success">{success}</p>}
+      <form onSubmit={handleSubmit} className='form'>
+        <div className="form-group">
+          <div className='label'><label htmlFor="name">Name:</label></div>
+          <div className='input'>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {errors.name && <p className="error">{errors.name}</p>}
+          </div>
+        </div>
+        <div className="form-group">
+          <div className='label'><label htmlFor="email">Email:</label></div>
+          <div className='input'>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {errors.email && <p className="error">{errors.email}</p>}
+          </div>
+        </div>
+        <div className="form-group">
+          <div className='label'><label htmlFor="phoneNo">Phone Number:</label></div>
+          <div className='input'>
+            <input
+              type="text"
+              id="phoneNo"
+              name="phoneNo"
+              value={formData.phoneNo}
+              onChange={handleChange}
+            />
+            {errors.phoneNo && <p className="error">{errors.phoneNo}</p>}
+          </div>
+        </div>
+        <div className="form-group">
+          <div className='label'><label htmlFor="password">Password:</label></div>
+          <div className='input'>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {errors.password && <p className="error">{errors.password}</p>}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <div className='input'>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+            {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+          >
+            <option value="USER">User</option>
+            <option value="OWNER">Owner</option>
+          </select>
+        </div>
+        <button type="submit">Register</button>
+      </form>
     </div>
-    <div className="form-group">
-    <div className='label'> <label htmlFor="email">Email:</label></div>
-    <div  className='input'> 
-       <input
-        type="email"
-        id="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-      {errors.email && <p className="error">{errors.email}</p>}
-      </div>
-    </div>
-    <div className="form-group">
-      <label htmlFor="phoneNo">Phone Number:</label>
-      <div  className='input'><input
-        type="text"
-        id="phoneNo"
-        name="phoneNo"
-        value={formData.phoneNo}
-        onChange={handleChange}
-        required
-      />
-      {errors.phoneNo && <p className="error">{errors.phoneNo}</p>}
-      </div>
-    </div>
-    <div className="form-group">
-      <div className='label'><label htmlFor="password">Password:</label></div>
-      <div  className='input'> <input
-        type="password"
-        id="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-      />
-      </div>
-    </div>
-    <div className="form-group">
-      <label htmlFor="confirmPassword">Confirm Password:</label>
-      <div  className='input'> <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        required
-      />
-      {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-      </div>
-    </div>
-    <div className="form-group">
-      <label htmlFor="role">Role:</label>
-      <select
-        id="role"
-        name="role"
-        value={formData.role}
-        onChange={handleChange}
-        required
-      >
-        <option value="USER">User</option>
-        <option value="OWNER">Owner</option>
-      </select>
-    </div>
-    <button type="submit">Register</button>
-  </form>
-</div>
-
   );
 };
 

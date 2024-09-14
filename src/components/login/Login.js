@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useUser } from '../../UserContext'; // Import useUser hook
 import './Login.css'; // Import your CSS file
 
-const Login = ({ onLoginSuccess }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useUser(); // Access login function from context
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     // Base64 encode the password
     const encodedPassword = btoa(password);
-
+  
     try {
-      const response = await axios.post('http://localhost:8081/user/login', { email, password: encodedPassword });
+      const response = await axios.post('http://localhost:8080/user/login', { email, password: encodedPassword });
       const userOutDto = response.data;
-      onLoginSuccess(userOutDto); // Call onLoginSuccess with the received userOutDto
+      console.log('Login successful:', userOutDto); // Debugging line
+      login(userOutDto); // Set the logged-in user in context
       const { role } = userOutDto;
+      console.log('User role:', role); // Debugging line
+
+      // Redirect based on user role
       if (role === 'USER') {
         navigate('/userDashboard');
       } else if (role === 'OWNER') {
@@ -28,6 +34,7 @@ const Login = ({ onLoginSuccess }) => {
         setError('Invalid role received.');
       }
     } catch (err) {
+      console.error('Error during login:', err); // Debugging line
       if (err.response && err.response.status === 404) {
         setError('Email mismatched.');
       } else if (err.response && err.response.status === 401) {
@@ -37,7 +44,7 @@ const Login = ({ onLoginSuccess }) => {
       }
     }
   };
-
+  
   return (
     <div className="login-container">
       <h1>Login</h1>
@@ -62,9 +69,14 @@ const Login = ({ onLoginSuccess }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="button-container">
+          <button type="submit">Login</button>
+        </div>
       </form>
       {error && <p className="message">{error}</p>}
+      <p className="register-prompt">
+        Don't have an account? <a href="/register">Register here</a>
+      </p>
     </div>
   );
 };

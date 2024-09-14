@@ -1,84 +1,93 @@
-/* AddFoodItem.css */
-
 .add-food-item-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 500px; /* Width remains the same */
+  margin: 20px auto; /* Centering */
+  padding: 10px; /* Reduced padding */
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 1.2em; /* Font size remains the same */
+  margin-bottom: 8px; /* Reduced margin */
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
 }
 
-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+.form-group {
+  margin-bottom: 6px; /* Further reduced space between form groups */
 }
 
-span {
-  display: inline-block;
+.label {
   font-weight: bold;
-  font-size: 16px; /* Larger font size */
-  margin-right: 15px; /* More space between label and input */
-  width: 200px; /* Adjust width as needed */
-  color: #555;
+  margin-bottom: 2px; /* Reduced space between label and input */
+  font-size: 0.85em; /* Slightly smaller font size */
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
 }
 
 input[type="text"],
 input[type="number"],
 textarea,
-select,
-input[type="file"] {
-  flex: 1;
-  padding: 8px;
+select {
+  width: 100%;
+  padding: 4px; /* Reduced padding for a more compact form */
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+  font-size: 0.8em; /* Smaller font size */
 }
 
 textarea {
   resize: vertical;
+  min-height: 20px; /* Further reduced min-height */
 }
 
-input[type="checkbox"] {
-  margin-right: 10px;
+.error {
+  color: red;
+  font-size: 0.7em; /* Smaller error text */
+  margin-top: 2px; /* Reduced margin */
+}
+
+.success {
+  color: green;
+  font-size: 0.8em; /* Slightly smaller success text */
+  margin-top: 6px; /* Reduced margin */
 }
 
 button {
+  padding: 4px 8px; /* Reduced padding for a more compact button */
   background-color: #28a745;
-  color: white;
   border: none;
-  padding: 10px 15px;
+  color: white;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  font-size: 0.85em; /* Slightly smaller font size */
+  margin-top: 8px;
 }
 
 button:hover {
   background-color: #218838;
 }
 
-.success {
-  color: #28a745;
-  text-align: center;
-  margin-top: 15px;
+/* New styles for image upload and submit button alignment */
+.upload-and-submit-container {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space out items */
 }
 
-.error {
-  color: #dc3545;
-  text-align: center;
-  margin-top: 15px;
+.upload-and-submit-container .form-group {
+  margin-bottom: 0; /* Remove bottom margin for container items */
+}
+
+.upload-and-submit-container button {
+  margin: 0; /* Remove margin for the button */
 }

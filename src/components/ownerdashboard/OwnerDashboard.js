@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './OwnerDashboard.css';
+import { useUser } from '../../UserContext'; // Import useUser hook
 import { useNavigate } from 'react-router-dom';
+import './OwnerDashboard.css';
 
-const OwnerDashboard = ({ user }) => {
+const OwnerDashboard = () => {
+  const { loggedInUser } = useUser(); // Access logged-in user from context
   const [profileData, setProfileData] = useState(null);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [restaurants, setRestaurants] = useState([]); // State for restaurants
+  const [loadingRestaurants, setLoadingRestaurants] = useState(true); // Loading state for restaurants
+  const [errorRestaurants, setErrorRestaurants] = useState(null); // Error state for restaurants
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedInUser && loggedInUser.id) {
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
+        .then(response => {
+          setRestaurants(response.data);
+          setLoadingRestaurants(false);
+        })
+        .catch(error => {
+          setErrorRestaurants('Failed to fetch restaurants');
+          setLoadingRestaurants(false);
+        });
+    }
+  }, [loggedInUser]);
 
   const handleMyProfileClick = () => {
     setShowProfilePanel(!showProfilePanel);
 
-    if (!showProfilePanel) {
-      axios.get(`http://localhost:8081/user/get/${user.id}`)
+    if (!showProfilePanel && loggedInUser) {
+      axios.get(`http://localhost:8080/user/get/${loggedInUser.id}`)
         .then(response => {
           setProfileData(response.data);
         })
@@ -27,47 +46,31 @@ const OwnerDashboard = ({ user }) => {
     setActiveMenu(activeMenu === menu ? null : menu);
   };
 
-  const handleAddRestaurantClick = () => {
-    navigate('/addRestaurant', { state: { user: user } });
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
-  const handleViewAllRestaurantsClick = () => {
-    navigate('/viewAllRestaurants');
+  const handleMyOrdersClick = () => {
+    navigate('/myOrder'); // Navigate to the My Orders page
   };
 
-  const handleAddCategoryClick = () => {
-    navigate('/addCategory');
-  };
-
-  const handleViewAllRestaurantCategoriesClick = () => {
-    navigate('/viewAllRestaurantCategories');
-  };
-
-  
-  const handleAddFoodItemClick = () => {
-    navigate('/addFoodItem');
-  };
-
-  const handleViewFoodItemClick = () => {
-    navigate('/viewFoodItem');
-  };
-
-  const handleUpdateFoodItemClick = () => {
-    navigate('/updateFoodItem');
-  };
+  if (!loggedInUser) {
+    return <p>Please log in to access the dashboard.</p>; // Handle case when user is not logged in
+  }
 
   return (
     <div className="owner-dashboard">
       <div className="sidebar">
         <button className="sidebar-button" onClick={handleMyProfileClick}>My Profile</button>
+        <button className="sidebar-button" onClick={handleMyOrdersClick}>My Orders</button>
 
         <button className="sidebar-button" onClick={() => handleMenuClick('restaurant')}>
           Restaurant
         </button>
         {activeMenu === 'restaurant' && (
           <div className="submenu">
-            <button className="submenu-button" onClick={handleAddRestaurantClick}>Add Restaurant</button>
-            <button className="submenu-button" onClick={handleViewAllRestaurantsClick}>View All Restaurants</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/addRestaurant')}>Add Restaurant</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/viewAllRestaurants')}>View All Restaurants</button>
           </div>
         )}
 
@@ -76,8 +79,8 @@ const OwnerDashboard = ({ user }) => {
         </button>
         {activeMenu === 'category' && (
           <div className="submenu">
-            <button className="submenu-button" onClick={handleAddCategoryClick}>Add Category</button>
-            <button className="submenu-button" onClick={handleViewAllRestaurantCategoriesClick}>View All Categories</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/addCategory')}>Add Category</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/viewAllRestaurantCategories')}>View All Categories</button>
           </div>
         )}
 
@@ -86,11 +89,38 @@ const OwnerDashboard = ({ user }) => {
         </button>
         {activeMenu === 'foodItem' && (
           <div className="submenu">
-            <button className="submenu-button" onClick={handleAddFoodItemClick}>Add Food Item</button>
-            <button className="submenu-button" onClick={handleUpdateFoodItemClick}>Update Food Item</button>
-            <button className="submenu-button" onClick={handleViewFoodItemClick}>View Food Items</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/addFoodItem')}>Add Food Item</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/updateFoodItem')}>Update Food Item</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/viewFoodItem')}>View Food Items</button>
           </div>
         )}
+      </div>
+
+      <div className="content">
+        <h2>Your Restaurants</h2>
+        {loadingRestaurants && <p>Loading restaurants...</p>}
+        {errorRestaurants && <p>Error: {errorRestaurants}</p>}
+        {restaurants.length === 0 && !loadingRestaurants && !errorRestaurants && <p>No restaurants found.</p>}
+        
+        <div className="restaurant-grid">
+          {restaurants.map(restaurant => (
+            <div key={restaurant.id} className="restaurant-card">
+              {restaurant.imageData ? (
+                <img 
+                  src={`data:image/jpeg;base64,${restaurant.imageData}`} 
+                  alt={restaurant.restaurantName} 
+                  className="restaurant-image" 
+                />
+              ) : (
+                <div className="no-image">No Image</div>
+              )}
+              <h3>{restaurant.restaurantName}</h3>
+              <p><strong>Address:</strong> {restaurant.address}</p>
+              <p><strong>Contact:</strong> {restaurant.contactNumber}</p>
+              <p><strong>Description:</strong> {restaurant.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {showProfilePanel && (
@@ -101,7 +131,6 @@ const OwnerDashboard = ({ user }) => {
               <p><strong>Name:</strong> {profileData.name}</p>
               <p><strong>Email:</strong> {profileData.email}</p>
               <p><strong>Phone Number:</strong> {profileData.phoneNo}</p>
-              <p><strong>Role:</strong> {profileData.role}</p>
             </div>
           )}
         </div>

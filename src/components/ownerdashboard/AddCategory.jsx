@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../../UserContext';  // Correct relative path to UserContext
 import './AddCategory.css';
 
-const AddCategory = ({ userId }) => {
+const AddCategory = () => {
+  const { loggedInUser } = useUser(); // Access loggedInUser from UserContext
+  const userId = loggedInUser ? loggedInUser.id : null; // Extract userId from loggedInUser
+
   const [restaurants, setRestaurants] = useState([]);
   const [categoryName, setCategoryName] = useState('');
   const [selectedRestaurantId, setSelectedRestaurantId] = useState('');
@@ -12,7 +16,7 @@ const AddCategory = ({ userId }) => {
 
   useEffect(() => {
     if (userId) {
-      axios.get(`http://localhost:8080/restaurant/get/${userId}`)
+      axios.get(`http://localhost:8081/restaurant/get/${userId}`)
         .then(response => {
           setRestaurants(response.data);
           setLoading(false);
@@ -50,22 +54,26 @@ const AddCategory = ({ userId }) => {
 
     if (!userId) {
       setError('User ID is not available.');
+      window.alert(`Error: User ID is not available.`);
       return;
     }
 
     if (categoryName.trim() === '') {
       setError('Category name cannot be blank.');
+      window.alert(`Error: Category name cannot be blank.`);
       return;
     }
 
     if (categoryName.length < 3) {
       setError('Category name must be at least 3 characters long.');
+      window.alert(`Error: Category name must be at least 3 characters long.`);
       return;
     }
 
     const namePattern = /^[a-zA-Z ]+$/;
     if (!namePattern.test(categoryName)) {
       setError('Category name must contain only alphabets and spaces.');
+      window.alert(`Error: Category name must contain only alphabets and spaces.`);
       return;
     }
 
@@ -74,27 +82,42 @@ const AddCategory = ({ userId }) => {
       name: categoryName
     };
 
-    axios.post('http://localhost:8080/category/add', categoryInDto)
+    axios.post('http://localhost:8081/category/add', categoryInDto)
       .then(response => {
         if (response.status === 201) {
           setSuccessMessage('Category added successfully!');
           setCategoryName('');
           setSelectedRestaurantId('');
           setError('');
+          window.alert(`Success: Category added successfully!`);
         } else {
           setError('Failed to add category. Response status: ' + response.status);
-          setSuccessMessage('');
+          window.alert(`Error: Failed to add category. Response status: ${response.status}`);
         }
       })
       .catch(error => {
-        console.error("There was an error adding the category!", error);
-        setError('Failed to add category.');
+        let errorMessage = 'Failed to add category.';
+        
+        if (error.response) {
+          // Handle specific error cases based on status codes
+          if (error.response.status === 409) {
+            errorMessage = error.response.data.message || 'Category already exists.';
+          } else {
+            errorMessage = error.response.data.message || errorMessage;
+          }
+        } 
+
+        // Show the error message in an alert box
+        window.alert(`Error: ${errorMessage}`);
+        
+        // Clear success message and reset category name
         setSuccessMessage('');
+        setCategoryName('');
+        setSelectedRestaurantId('');
       });
   };
 
   if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div className="add-category-container">
@@ -130,7 +153,6 @@ const AddCategory = ({ userId }) => {
         </label>
         <button type="submit">Add Category</button>
         {successMessage && <p className="success">{successMessage}</p>}
-        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

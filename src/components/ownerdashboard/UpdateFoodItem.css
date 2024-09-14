@@ -1,80 +1,110 @@
 .update-food-item-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .restaurant-list, .food-item-list {
-    margin-bottom: 20px;
-  }
-  
-  select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .food-item-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  input[type="text"], input[type="number"], textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-  }
-  
-  textarea {
-    resize: vertical;
-  }
-  
-  input[type="checkbox"] {
-    margin-left: 10px;
-  }
-  
-  .update-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .update-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .error {
-    color: red;
-    text-align: center;
-  }
-  
-  .loading {
-    text-align: center;
-    color: #555;
-  }
-  
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.form-row-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Reduced gap between form elements */
+  margin-bottom: 20px; /* Reduced margin */
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-direction: row; /* Align items horizontally */
+  justify-content: space-between; /* Space between label and input */
+}
+
+label {
+  font-size: 0.9rem; /* Slightly smaller label size */
+  margin-bottom: 0; /* Ensure label stays aligned */
+  width: auto; /* Allow label width to be dynamic */
+  text-align: left; /* Align labels to the left */
+  font-weight: 500;
+  color: #333;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.1); /* Slightly reduced checkbox size */
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  flex: 1; /* Input fields take up remaining space */
+  padding: 8px; /* Reduced padding for inputs */
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff;
+}
+
+textarea {
+  resize: vertical;
+  padding: 8px; /* Reduced padding for text areas */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.update-button {
+  padding: 10px 18px; /* Reduced button padding */
+  font-size: 0.9rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.update-button:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem; /* Slightly smaller error text */
+  margin-top: 3px;
+  text-align: left;
+}
+
+.success {
+  color: green;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px; /* Reduced success message margin */
+}
+
+.loading {
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+}

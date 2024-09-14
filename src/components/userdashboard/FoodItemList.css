@@ -1,0 +1,122 @@
+/* General food item list styles */
+.food-item-list {
+  padding: 20px;
+}
+
+/* Table and food item rows */
+.food-item-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.food-item-list th, .food-item-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.food-item-list th {
+  background-color: #f4f4f4;
+}
+
+/* Food item card styles */
+.food-item-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.food-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.food-item-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.food-item-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.food-item-price {
+  font-size: 16px;
+  color: #ff6600;
+}
+
+/* Quantity input styles */
+.food-item-list input[type="number"] {
+  width: 60px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* Cart item list styles */
+.cart-item-list {
+  margin-top: 20px;
+}
+
+/* Cart item table */
+.cart-item-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-item-list th, .cart-item-list td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.cart-item-list th {
+  background-color: #f4f4f4;
+}
+
+/* Address and place order buttons */
+.choose-address {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px; /* Add space between elements */
+}
+
+.choose-address label {
+  margin-right: 10px;
+}
+
+.choose-address select {
+  margin-right: 10px;
+}
+
+/* Button styles */
+.choose-address button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.choose-address button:hover {
+  background-color: #e65c00;
+}
+
+/* Responsive styling for cart form */
+.cart-item-list {
+  max-width: 600px;
+  margin: 0 auto; /* Center the form */
+}
