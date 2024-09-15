@@ -100,8 +100,10 @@ const AddRestaurant = () => {
 
   return (
     <div className="add-restaurant-container">
+      <button className="back-button" onClick={() => navigate('/ownerDashboard')}>
+        &larr; Back to Dashboard
+      </button>
       <h2>Add Restaurant</h2>
-      {error.general && <p className="error">{error.general}</p>}
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
@@ -147,7 +149,7 @@ const AddRestaurant = () => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            />
+            ></textarea>
             {error.description && <p className="error">{error.description}</p>}
           </div>
         </div>
@@ -157,14 +159,13 @@ const AddRestaurant = () => {
             <input
               type="file"
               id="imageFile"
-              accept=".png, .jpg, .jpeg"
               onChange={(e) => setImageFile(e.target.files[0])}
             />
-            {error.imageFile && <p className="error">{error.imageFile}</p>}
           </div>
         </div>
         <button type="submit">Add Restaurant</button>
       </form>
+      {error.general && <p className="error-container error">{error.general}</p>}
     </div>
   );
 };

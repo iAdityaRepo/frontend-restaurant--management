@@ -60,12 +60,14 @@ const Cart = () => {
                     onClick={() => handleSelectRestaurant(restaurant.id)}
                   >
                     <div className="restaurant-image-container">
-                      {restaurant.imageData && (
+                      {restaurant.imageData ? (
                         <img
                           src={`data:image/jpeg;base64,${restaurant.imageData}`}
                           alt={restaurant.restaurantName}
                           className="restaurant-image"
                         />
+                      ) : (
+                        <div className="no-image">No image available</div>
                       )}
                     </div>
                     <span className="restaurant-name">{restaurant.restaurantName}</span>

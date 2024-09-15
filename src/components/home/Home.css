@@ -68,6 +68,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  width: 250px; /* Keep card width fixed */
+  height: auto; /* Allow card height to adjust to content */
 }
 
 .restaurant-card:hover {
@@ -76,11 +78,13 @@
 }
 
 .restaurant-image {
-  width: 120px;
-  height: 120px;
+  width: 230px;  /* Slightly increase width */
+  height: 230px; /* Slightly increase height */
   object-fit: cover;
   border-radius: 8px;
+  transition: transform 0.3s ease; /* Smooth resizing */
 }
+
 
 .restaurant-info {
   text-transform: uppercase; /* Make all text in restaurant-info uppercase */

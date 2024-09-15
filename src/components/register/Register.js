@@ -58,13 +58,11 @@ const Register = () => {
       errors.phoneNo = 'Phone number must be a 10-digit number starting with 6, 7, 8, or 9.';
     }
 
-    // Password Validation
+    // Password Validation (updated to match backend validation)
     if (!password) {
       errors.password = 'Password cannot be blank.';
-    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{3,}$/.test(password)) {
-      console.log(formData.password);
-
-      errors.password = 'Password must be at least 3 characters long, contain at least one uppercase letter, one lowercase letter, and one digit.';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$/.test(password)) {
+      errors.password = 'Password must be at least 4 characters long, contain at least one uppercase letter, one lowercase letter, and one digit.';
     }
 
     if (!confirmPassword) {
@@ -119,7 +117,13 @@ const Register = () => {
       setErrors({});
     } catch (error) {
       console.error('Error registering user:', error.response?.data || error.message);
-      setErrors({ general: error.response?.data?.message || 'Registration failed. Please try again.' });
+
+      // Extract and set backend error messages
+      if (error.response?.data?.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors({ general: 'Registration failed. Please try again.' });
+      }
     }
   };
 
@@ -182,7 +186,7 @@ const Register = () => {
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <div className='label'><label htmlFor="confirmPassword">Confirm Password:</label></div>
           <div className='input'>
             <input
               type="password"
@@ -195,18 +199,22 @@ const Register = () => {
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="role">Role:</label>
-          <select
-            id="role"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-          >
-            <option value="USER">User</option>
-            <option value="OWNER">Owner</option>
-          </select>
+          <div className='label'><label htmlFor="role">Role:</label></div>
+          <div className='input'>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="USER">User</option>
+              <option value="OWNER">Owner</option>
+            </select>
+          </div>
         </div>
-        <button type="submit">Register</button>
+        <div className="button-container">
+          <button type="submit">Register</button>
+        </div>
       </form>
     </div>
   );

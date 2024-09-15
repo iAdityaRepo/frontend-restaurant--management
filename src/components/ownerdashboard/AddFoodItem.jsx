@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../../UserContext';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './AddFoodItem.css';
 
 const AddFoodItem = () => {
   const { loggedInUser } = useUser();
   const userId = loggedInUser ? loggedInUser.id : null;
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   const [restaurants, setRestaurants] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -131,16 +133,22 @@ const AddFoodItem = () => {
         setImageFile(null);
         setIsAvailable(true);
         setErrors({});
-      } else {
-        setErrors({ submit: 'Failed to add food item.' });
       }
     } catch (error) {
-      setErrors({ submit: 'Failed to add food item.' });
+      if (error.response && error.response.data && error.response.data.message) {
+        window.alert(error.response.data.message);
+      } else {
+        window.alert('Failed to add food item.');
+      }
     }
   };
 
+  const handleBack = () => {
+    navigate(-1); // Use navigate to go back to the previous page
+  };
+
   if (!loggedInUser) {
-    return <p>Please log in to access this page.</p>; // Handle case when user is not logged in
+    return <p>Please log in to access this page.</p>;
   }
 
   return (
@@ -148,8 +156,8 @@ const AddFoodItem = () => {
       <h2>Add Food Item</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
-          <div className='label'><label htmlFor="foodName">Food Name:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="foodName">Food Name:</label></div>
+          <div className="input">
             <input
               type="text"
               id="foodName"
@@ -161,8 +169,8 @@ const AddFoodItem = () => {
         </div>
 
         <div className="form-group">
-          <div className='label'><label htmlFor="restaurant">Select Restaurant:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="restaurant">Select Restaurant:</label></div>
+          <div className="input">
             <select
               id="restaurant"
               value={selectedRestaurant}
@@ -180,8 +188,8 @@ const AddFoodItem = () => {
         </div>
 
         <div className="form-group">
-          <div className='label'><label htmlFor="category">Select Category:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="category">Select Category:</label></div>
+          <div className="input">
             <select
               id="category"
               value={selectedCategory}
@@ -199,8 +207,8 @@ const AddFoodItem = () => {
         </div>
 
         <div className="form-group">
-          <div className='label'><label htmlFor="description">Description:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="description">Description:</label></div>
+          <div className="input">
             <textarea
               id="description"
               value={description}
@@ -211,8 +219,8 @@ const AddFoodItem = () => {
         </div>
 
         <div className="form-group">
-          <div className='label'><label htmlFor="price">Price:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="price">Price:</label></div>
+          <div className="input">
             <input
               type="number"
               id="price"
@@ -224,8 +232,8 @@ const AddFoodItem = () => {
         </div>
 
         <div className="form-group">
-          <div className='label'><label htmlFor="isAvailable">Available:</label></div>
-          <div className='input'>
+          <div className="label"><label htmlFor="isAvailable">Available:</label></div>
+          <div className="input">
             <select
               id="isAvailable"
               value={isAvailable}
@@ -238,9 +246,9 @@ const AddFoodItem = () => {
           </div>
         </div>
 
-        <div className="upload-and-submit-container">
-          <div className="form-group">
-            <label htmlFor="imageFile">Upload Image:</label>
+        <div className="form-group">
+          <div className="label"><label htmlFor="imageFile">Upload Image:</label></div>
+          <div className="input">
             <input
               type="file"
               id="imageFile"
@@ -248,12 +256,14 @@ const AddFoodItem = () => {
               onChange={(e) => setImageFile(e.target.files[0])}
             />
           </div>
-          <button type="submit">Add Food Item</button>
         </div>
 
-        {errors.submit && <p className="error">{errors.submit}</p>}
-        {success && <p className="success">{success}</p>}
+        <div className="upload-and-submit-container">
+          <button type="submit">Add Food Item</button>
+          <button type="button" className="back-button" onClick={handleBack}>Back</button>
+        </div>
       </form>
+      {success && <p className="success">{success}</p>}
     </div>
   );
 };

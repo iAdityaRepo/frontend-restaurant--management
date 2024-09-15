@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../../UserContext'; // Import useUser hook
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import './MyOrders.css';
 
 const MyOrders = () => {
@@ -11,6 +12,8 @@ const MyOrders = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [ordersLoading, setOrdersLoading] = useState(false);
+
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     if (loggedInUser && loggedInUser.id) {
@@ -77,6 +80,9 @@ const MyOrders = () => {
 
   return (
     <div className="my-orders">
+      <button className="back-button" onClick={() => navigate('/ownerDashboard')}>
+        &larr; Back to Dashboard
+      </button>
       <h2>My Orders</h2>
 
       <div className="restaurant-list">

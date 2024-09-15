@@ -195,7 +195,6 @@ const FoodItemList = () => {
                   <th>Description</th>
                   <th>Category</th>
                   <th>Price</th>
-                  <th>Availability</th>
                   <th>Image</th>
                   <th>Quantity</th>
                   <th>Action</th>
@@ -207,15 +206,16 @@ const FoodItemList = () => {
                     <td>{item.foodName || 'No name available'}</td>
                     <td>{item.description || 'No description available'}</td>
                     <td>{item.categoryName || 'No category available'}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>{item.available ? 'Available' : 'Not Available'}</td>
+                    <td>Rs. {item.price.toFixed(2)}</td>
                     <td>
-                      {item.imageData && (
+                      {item.imageData ? (
                         <img
                           src={`data:image/jpeg;base64,${item.imageData}`}
                           alt={item.foodName}
                           className="food-image"
                         />
+                      ) : (
+                        <div className="no-image">No image available</div>
                       )}
                     </td>
                     <td>
@@ -259,22 +259,25 @@ const FoodItemList = () => {
               <tbody>
                 {cartItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.foodItemName || 'No name available'}</td>
-                    <td>{item.quantity}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                    <td>{item.foodName || 'No name available'}</td>
+                    <td>{item.quantity || 'N/A'}</td>
+                    <td>Rs. {item.price.toFixed(2)}</td>
+                    <td>Rs. {(item.price * item.quantity).toFixed(2)}</td>
                   </tr>
                 ))}
+                <tr>
+                  <td colSpan="3" className="total">Total:</td>
+                  <td className="total">Rs. {cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</td>
+                </tr>
               </tbody>
             </table>
-
-            <div className="place-order">
-              <h3>Choose Address</h3>
+            <div className="order-summary">
+              <label htmlFor="address">Select Address:</label>
               <select
                 id="address"
                 value={selectedAddressId || ''}
+                onChange={(e) => setSelectedAddressId(e.target.value)}
                 onClick={handleAddressDropdownClick}
-                onChange={(e) => setSelectedAddressId(Number(e.target.value))}
               >
                 <option value="">Select an address</option>
                 {addresses.map((address) => (
@@ -285,6 +288,7 @@ const FoodItemList = () => {
               </select>
               <button onClick={() => setShowAddressModal(true)}>Add New Address</button>
               <button onClick={handlePlaceOrder}>Place Order</button>
+              {error && <div className="error-message">{error}</div>}
             </div>
           </>
         ) : (
@@ -294,8 +298,8 @@ const FoodItemList = () => {
 
       {showAddressModal && (
         <AddressModal
-          onAddAddress={handleAddAddress}
           onClose={() => setShowAddressModal(false)}
+          onAddAddress={handleAddAddress}
         />
       )}
     </div>

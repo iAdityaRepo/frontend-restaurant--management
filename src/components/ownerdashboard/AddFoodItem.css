@@ -1,93 +1,139 @@
+/* Container styling */
 .add-food-item-container {
-  max-width: 500px; /* Width remains the same */
-  margin: 20px auto; /* Centering */
-  padding: 10px; /* Reduced padding */
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
   background-color: #f9f9f9;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added for positioning the back button */
 }
 
-h2 {
+/* Header styling */
+.add-food-item-container h2 {
+  margin-bottom: 20px;
   text-align: center;
-  font-size: 1.2em; /* Font size remains the same */
-  margin-bottom: 8px; /* Reduced margin */
+  color: #333;
 }
 
+/* Form styling */
 .form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 6px; /* Further reduced space between form groups */
-}
-
-.label {
-  font-weight: bold;
-  margin-bottom: 2px; /* Reduced space between label and input */
-  font-size: 0.85em; /* Slightly smaller font size */
-}
-
-.input {
-  display: flex;
-  flex-direction: column;
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select {
   width: 100%;
-  padding: 4px; /* Reduced padding for a more compact form */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Flex container for form groups */
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+  position: relative;
+}
+
+/* Label styling */
+.form-group .label {
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+  color: #555;
+  margin-right: 10px;
+}
+
+/* Input container */
+.form-group .input {
+  width: 70%;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+/* Input and textarea styling */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 0.8em; /* Smaller font size */
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-textarea {
-  resize: vertical;
-  min-height: 20px; /* Further reduced min-height */
-}
-
+/* Error message styling */
 .error {
   color: red;
-  font-size: 0.7em; /* Smaller error text */
-  margin-top: 2px; /* Reduced margin */
+  font-size: 12px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  margin: 0;
 }
 
+/* Success message styling */
 .success {
   color: green;
-  font-size: 0.8em; /* Slightly smaller success text */
-  margin-top: 6px; /* Reduced margin */
+  font-size: 14px;
+  text-align: center;
+  margin: 10px 0;
 }
 
+/* Button styling */
 button {
-  padding: 4px 8px; /* Reduced padding for a more compact button */
-  background-color: #28a745;
-  border: none;
+  width: 50%;
+  padding: 12px;
+  background-color: rgb(19, 132, 117); /* Color for Add Food Item and Back buttons */
   color: white;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.85em; /* Slightly smaller font size */
-  margin-top: 8px;
+  font-size: 27px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #45a049;
 }
 
-/* New styles for image upload and submit button alignment */
+button:active {
+  background-color: #004494;
+}
+
+/* Back button positioning */
+.back-button {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  width: auto; /* Width for back button */
+  padding: 10px 20px; /* Padding adjustment for back button */
+  font-size: 16px; /* Font size for back button */
+}
+
+/* Upload image and Add Food Item buttons on separate lines */
 .upload-and-submit-container {
   display: flex;
-  align-items: center; /* Center items vertically */
-  justify-content: space-between; /* Space out items */
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.upload-and-submit-container .form-group {
-  margin-bottom: 0; /* Remove bottom margin for container items */
+/* Upload image input */
+.upload-and-submit-container input[type="file"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 14px;
 }
 
-.upload-and-submit-container button {
-  margin: 0; /* Remove margin for the button */
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .form-group .label, .form-group .input {
+    width: 100%;
+    text-align: left;
+  }
+
+  .form-group .label {
+    margin-bottom: 5px;
+  }
 }

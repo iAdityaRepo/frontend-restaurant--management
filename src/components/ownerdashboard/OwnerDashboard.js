@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useUser } from '../../UserContext'; // Import useUser hook
+import { useUser } from '../../UserContext';
 import { useNavigate } from 'react-router-dom';
 import './OwnerDashboard.css';
 
 const OwnerDashboard = () => {
-  const { loggedInUser } = useUser(); // Access logged-in user from context
+  const { loggedInUser } = useUser();
   const [profileData, setProfileData] = useState(null);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
-  const [restaurants, setRestaurants] = useState([]); // State for restaurants
-  const [loadingRestaurants, setLoadingRestaurants] = useState(true); // Loading state for restaurants
-  const [errorRestaurants, setErrorRestaurants] = useState(null); // Error state for restaurants
+  const [restaurants, setRestaurants] = useState([]);
+  const [loadingRestaurants, setLoadingRestaurants] = useState(true);
+  const [errorRestaurants, setErrorRestaurants] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,11 +51,11 @@ const OwnerDashboard = () => {
   };
 
   const handleMyOrdersClick = () => {
-    navigate('/myOrder'); // Navigate to the My Orders page
+    navigate('/myOrder');
   };
 
   if (!loggedInUser) {
-    return <p>Please log in to access the dashboard.</p>; // Handle case when user is not logged in
+    return <p>Please log in to access the dashboard.</p>;
   }
 
   return (
@@ -70,7 +70,6 @@ const OwnerDashboard = () => {
         {activeMenu === 'restaurant' && (
           <div className="submenu">
             <button className="submenu-button" onClick={() => handleNavigation('/addRestaurant')}>Add Restaurant</button>
-            <button className="submenu-button" onClick={() => handleNavigation('/viewAllRestaurants')}>View All Restaurants</button>
           </div>
         )}
 

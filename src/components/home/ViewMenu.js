@@ -3,6 +3,16 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams hook
 import './ViewMenu.css';
 
+// Utility function to convert text to Upper Camel Case
+const toUpperCamelCase = (text) => {
+  if (!text) return 'Unknown';
+  return text
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 const ViewMenu = () => {
   const { restaurantId } = useParams(); // Get restaurant ID from URL parameters
   const [foodItems, setFoodItems] = useState([]);
@@ -22,7 +32,7 @@ const ViewMenu = () => {
 
             // Extract restaurant name from the first item
             if (data.length > 0) {
-              setRestaurantName(data[0].restaurantName || 'Unknown Restaurant');
+              setRestaurantName(toUpperCamelCase(data[0].restaurantName) || 'Unknown Restaurant');
             } else {
               setRestaurantName('No food items available');
             }
@@ -45,7 +55,7 @@ const ViewMenu = () => {
 
   return (
     <div className="view-menu">
-      <h3>Food Items for Restaurant: {restaurantName}</h3> {/* Display restaurant name */}
+      <h3>Food Items For Restaurant: {restaurantName}</h3> {/* Display restaurant name */}
       {foodItems.length > 0 ? (
         <table>
           <thead>
@@ -54,18 +64,16 @@ const ViewMenu = () => {
               <th>Description</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Availability</th>
               <th>Image</th>
             </tr>
           </thead>
           <tbody>
             {foodItems.map(item => (
               <tr key={item.id}>
-                <td>{item.foodName || 'No name available'}</td>
-                <td>{item.description || 'No description available'}</td>
-                <td>{item.categoryName || 'No category available'}</td>
-                <td>{item.price != null ? `$${item.price.toFixed(2)}` : 'No price available'}</td>
-                <td>{item.isAvailable ? 'Available' : 'Not Available'}</td>
+                <td>{toUpperCamelCase(item.foodName) || 'No Name Available'}</td>
+                <td>{toUpperCamelCase(item.description) || 'No Description Available'}</td>
+                <td>{toUpperCamelCase(item.categoryName) || 'No Category Available'}</td>
+                <td>{item.price != null ? `Rs. ${item.price.toFixed(2)}` : 'No Price Available'}</td>
                 <td>
                   {item.imageData ? (
                     <img
@@ -74,7 +82,7 @@ const ViewMenu = () => {
                       className="food-item-image"
                     />
                   ) : (
-                    'No image available'
+                    <div className="no-image">No Image Available</div>
                   )}
                 </td>
               </tr>

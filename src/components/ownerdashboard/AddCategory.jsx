@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../../UserContext';  // Correct relative path to UserContext
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import './AddCategory.css';
 
 const AddCategory = () => {
   const { loggedInUser } = useUser(); // Access loggedInUser from UserContext
   const userId = loggedInUser ? loggedInUser.id : null; // Extract userId from loggedInUser
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [restaurants, setRestaurants] = useState([]);
   const [categoryName, setCategoryName] = useState('');
@@ -99,28 +101,29 @@ const AddCategory = () => {
         let errorMessage = 'Failed to add category.';
         
         if (error.response) {
-          // Handle specific error cases based on status codes
           if (error.response.status === 409) {
             errorMessage = error.response.data.message || 'Category already exists.';
           } else {
             errorMessage = error.response.data.message || errorMessage;
           }
-        } 
+        }
 
-        // Show the error message in an alert box
         window.alert(`Error: ${errorMessage}`);
-        
-        // Clear success message and reset category name
         setSuccessMessage('');
         setCategoryName('');
         setSelectedRestaurantId('');
       });
   };
 
+  const handleBackClick = () => {
+    navigate('/ownerDashboard'); // Navigate to the OwnerDashboard
+  };
+
   if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="add-category-container">
+      <button className="back-button" onClick={handleBackClick}>Back to Dashboard</button>
       <h2>Add New Category</h2>
       <form onSubmit={handleSubmit}>
         <label>

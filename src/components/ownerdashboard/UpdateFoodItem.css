@@ -1,4 +1,5 @@
 .update-food-item-container {
+  position: relative; /* Enable positioning of child elements */
   max-width: 600px;
   margin: 30px auto;
   padding: 20px;
@@ -22,6 +23,7 @@ h2 {
 }
 
 .form-group {
+  position: relative; /* Positioning context for error messages */
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -30,7 +32,7 @@ h2 {
 }
 
 label {
-  font-size: 0.9rem; /* Slightly smaller label size */
+  font-size: 1.2rem; /* Slightly smaller label size */
   margin-bottom: 0; /* Ensure label stays aligned */
   width: auto; /* Allow label width to be dynamic */
   text-align: left; /* Align labels to the left */
@@ -90,9 +92,12 @@ textarea {
 }
 
 .error {
+  position: absolute; /* Position error message absolutely */
+  bottom: -20px; /* Adjust to position error below the field */
+  left: 0;
   color: red;
   font-size: 0.85rem; /* Slightly smaller error text */
-  margin-top: 3px;
+  margin: 0; /* Remove margin to avoid layout issues */
   text-align: left;
 }
 
@@ -107,4 +112,23 @@ textarea {
   text-align: center;
   color: #555;
   font-size: 1.1rem;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
 }

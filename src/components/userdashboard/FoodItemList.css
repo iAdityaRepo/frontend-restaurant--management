@@ -1,22 +1,61 @@
 /* General food item list styles */
 .food-item-list {
-  padding: 20px;
+  padding: 0px;
 }
 
 /* Table and food item rows */
 .food-item-list table {
-  width: 100%;
+  width: calc(100% - 40px); /* Adjust width to account for increased margins */
+  margin: 20px auto; /* Increased margin on top and auto for left and right */
   border-collapse: collapse;
+  table-layout: fixed; /* Ensures table takes up the full width and columns are evenly distributed */
 }
 
 .food-item-list th, .food-item-list td {
-  padding: 10px;
+  padding: 2px; /* Reduced padding for a more compact look */
   border: 1px solid #ddd;
   text-align: left;
+  overflow: hidden; /* Ensures that content doesn't overflow its cell */
+  line-height: 1.2; /* Decreases the line height for a more compact appearance */
 }
 
 .food-item-list th {
   background-color: #f4f4f4;
+}
+
+/* Align action buttons to the left */
+.food-item-list .action-cell {
+  text-align: left; /* Left-align the action buttons */
+}
+
+/* Action button styles */
+.food-item-list .action-cell button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 6px 10px; /* Adjusted padding for better fit */
+  font-size: 14px; /* Slightly smaller font size */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+  margin-right: 90px; /* Adjust the margin if needed */
+}
+
+.food-item-list .action-cell button:hover {
+  background-color: #e65c00;
+}
+
+/* Increase width and left-align quantity input */
+.food-item-list input[type="number"] {
+  width: 100px;
+  height: 40px;
+  font-size: 30px;
+  text-align: left; /* Align text to the left */
+  padding: 4px; /* Reduced padding */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 /* Food item card styles */
@@ -31,8 +70,8 @@
 }
 
 .food-item-image {
-  width: 100px;
-  height: 100px;
+  width: 60px; /* Reduced width */
+  height: 60px; /* Reduced height */
   object-fit: cover;
   border-radius: 8px;
 }
@@ -43,23 +82,13 @@
 }
 
 .food-item-name {
-  font-size: 18px;
+  font-size: 14px; /* Slightly smaller font size */
   font-weight: bold;
 }
 
 .food-item-price {
-  font-size: 16px;
+  font-size: 12px; /* Slightly smaller font size */
   color: #ff6600;
-}
-
-/* Quantity input styles */
-.food-item-list input[type="number"] {
-  width: 60px;
-  text-align: center;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensure padding and border are included in width */
 }
 
 /* Cart item list styles */
@@ -69,18 +98,32 @@
 
 /* Cart item table */
 .cart-item-list table {
-  width: 100%;
+  width: calc(100% - 40px); /* Adjust width to account for increased margins */
+  margin: 20px auto; /* Increased margin on top and auto for left and right */
   border-collapse: collapse;
+  table-layout: fixed; /* Ensures table takes up the full width and columns are evenly distributed */
 }
 
 .cart-item-list th, .cart-item-list td {
-  padding: 10px;
+  padding: 2px; /* Reduced padding for a more compact look */
   border: 1px solid #ddd;
   text-align: left;
+  line-height: 1.2; /* Decreases the line height for a more compact appearance */
 }
 
 .cart-item-list th {
   background-color: #f4f4f4;
+}
+
+/* Set reduced width for specific columns in cart items */
+.cart-item-list th:nth-child(1),
+.cart-item-list td:nth-child(1) {
+  width: 100px; /* Adjusted width as needed */
+}
+
+.cart-item-list th:nth-child(2),
+.cart-item-list td:nth-child(2) {
+  width: 160px; /* Adjusted width as needed */
 }
 
 /* Address and place order buttons */
@@ -104,8 +147,8 @@
   background-color: #ff6600;
   border: none;
   color: white;
-  padding: 10px;
-  font-size: 16px;
+  padding: 8px 12px; /* Adjusted padding for a more compact look */
+  font-size: 14px; /* Slightly smaller font size */
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;

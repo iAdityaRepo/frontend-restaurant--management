@@ -1,6 +1,7 @@
 .user-dashboard {
     display: flex; /* Use flex layout to position the sidebar and content */
     padding: 20px;
+    gap: 20px; /* Space between sidebar and content */
 }
 
 .sidebar {
@@ -31,18 +32,7 @@
     padding: 20px;
 }
 
-.profile-panel {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    display: none;
-}
-
-.profile-panel.visible {
-    display: block;
-}
-
+.profile-panel,
 .orders-panel {
     margin-top: 20px;
     border: 1px solid #ddd;
@@ -51,6 +41,7 @@
     display: none;
 }
 
+.profile-panel.visible,
 .orders-panel.visible {
     display: block;
 }

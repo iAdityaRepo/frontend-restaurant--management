@@ -69,16 +69,19 @@
 
 /* Style for the button */
 .add-category-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px; /* Add some space above the button */
+    background-color: rgb(19, 132, 117);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute; /* Position absolutely within the container */
+  top: 20px; /* Margin from the top */
+  left: 20px; /* M space above the button */
 }
+
 
 .add-category-container button:hover {
     background-color: #45a049;

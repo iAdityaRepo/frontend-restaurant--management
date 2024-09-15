@@ -1,95 +1,95 @@
-/* Container styling */
+/* Scoped Container styling */
 .login-container {
-  max-width: 400px; /* Adjust width as needed */
-  margin: 100px auto; /* Center the form vertically and horizontally */
+  max-width: 400px;
+  margin: 100px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9; /* Light background for better visibility */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
-h1 {
+/* Scoped Header styling */
+.login-container h1 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
-  color: #333; /* Darker text for better readability */
+  color: #333;
 }
 
-/* Flex container for form groups */
-.form-group {
+/* Scoped Flex container for form groups */
+.login-container .form-group {
   display: flex;
-  align-items: center; /* Align items vertically */
+  align-items: center;
   margin-bottom: 15px;
 }
 
-/* Label styling */
-.form-group label {
-  flex: 1; /* Take up 1 part of the space */
-  margin-bottom: 0;
-  font-weight: bold; /* Makes labels stand out */
-  margin-right: 10px; /* Space between label and input */
-  text-align: right; /* Align text to the right for better visual alignment */
+/* Scoped Label styling */
+.login-container .form-group label {
+  flex: 1;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: left;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
-/* Input styling */
-.form-group input {
-  flex: 2; /* Take up 2 parts of the space */
+/* Scoped Input styling */
+.login-container .form-group input {
+  flex: 2;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px; /* Adjust font size for better readability */
-  width: 100%; /* Ensure inputs take full width of the flex container */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
-}/* Button container styling */
-.button-container {
-  text-align: center; /* Center-aligns content within the container */
-  margin-top: 20px; /* Space above the button container */
-  display: flex;
-  align-content: center;
-  justify-content: center;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Button styling */
-button {
-  display: inline-block; /* Ensures button width is only as wide as its content */
-  padding: 8px 16px; /* Reduced padding for a smaller button */
-  background-color: #007bff;
+/* Scoped Button container styling */
+.login-container .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Scoped Button styling */
+.login-container button {
+  width: 200px;
+  height: 40px;
+  background-color: rgb(19, 132, 117);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px; /* Adjust font size for button */
-  max-width: 150px; /* Adjust max-width as needed */
-  width: auto; /* Auto width based on content */
+  font-size: 24px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-button:hover {
+.login-container button:hover {
   background-color: #0056b3;
 }
 
-
-/* Message styling */
-.message {
+/* Scoped Message styling */
+.login-container .message {
   text-align: center;
   margin-top: 10px;
-  font-size: 16px; /* Adjust font size for messages */
-  color: #333; /* Default color for messages */
+  font-size: 16px;
+  color: #333;
 }
 
-/* Additional styling for the registration prompt */
-.register-prompt {
+/* Scoped Registration prompt */
+.login-container .register-prompt {
   text-align: center;
   margin-top: 20px;
-  font-size: 16px; /* Adjust font size as needed */
+  font-size: 16px;
 }
 
-.register-prompt a {
-  color: #007bff; /* Link color */
-  text-decoration: none; /* Remove underline from link */
+.login-container .register-prompt a {
+  color: #007bff;
+  text-decoration: none;
 }
 
-.register-prompt a:hover {
-  text-decoration: underline; /* Underline on hover */
+.login-container .register-prompt a:hover {
+  text-decoration: underline;
 }

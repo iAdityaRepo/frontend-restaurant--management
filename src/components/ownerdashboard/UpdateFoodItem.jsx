@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './UpdateFoodItem.css';
+import { useNavigate } from 'react-router-dom'; 
 import { useUser } from '../../UserContext';
+import './UpdateFoodItem.css';
 
 const UpdateFoodItem = () => {
   const { loggedInUser } = useUser();
+  const navigate = useNavigate(); 
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState('');
   const [foodItems, setFoodItems] = useState([]);
@@ -14,12 +16,11 @@ const UpdateFoodItem = () => {
     price: '',
     description: '',
     isAvailable: false,
-    categoryId: '',
+    categoryId: '', 
     restaurantId: ''
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
-  const [successMessage, setSuccessMessage] = useState('');
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
@@ -64,6 +65,8 @@ const UpdateFoodItem = () => {
       newErrors.foodName = 'Food name cannot be blank';
     } else if (foodItemData.foodName.length < 3) {
       newErrors.foodName = 'Food name must be at least 3 characters long';
+    } else if (!/^[a-zA-Z ]+$/.test(foodItemData.foodName)) {
+      newErrors.foodName = 'Food name must contain only alphabets and spaces';
     }
 
     if (!foodItemData.description.trim()) {
@@ -111,11 +114,10 @@ const UpdateFoodItem = () => {
         price: foodItem.price,
         description: foodItem.description,
         isAvailable: foodItem.isAvailable,
-        categoryId: foodItem.categoryId,
+        categoryId: foodItem.categoryId, 
         restaurantId: foodItem.restaurantId
       });
       setErrors({});
-      setSuccessMessage('');
     }
   };
 
@@ -129,7 +131,7 @@ const UpdateFoodItem = () => {
     formData.append('price', foodItemData.price);
     formData.append('description', foodItemData.description);
     formData.append('isAvailable', foodItemData.isAvailable);
-    formData.append('categoryId', foodItemData.categoryId);
+    formData.append('categoryId', foodItemData.categoryId); 
     formData.append('restaurantId', foodItemData.restaurantId);
     if (imageFile) {
       formData.append('multipartFile', imageFile);
@@ -141,10 +143,14 @@ const UpdateFoodItem = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setSuccessMessage('Food item updated successfully!');
+      alert('Food item updated successfully!');
       setErrors({});
     } catch (error) {
-      setErrors({ submit: 'Failed to update food item.' });
+      if (error.response) {
+        alert(`Error: ${error.response.data.message || 'Failed to update food item.'}`);
+      } else {
+        alert('Failed to update food item.');
+      }
     }
   };
 
@@ -153,6 +159,9 @@ const UpdateFoodItem = () => {
 
   return (
     <div className="update-food-item-container">
+      <button className="back-button" onClick={() => navigate('/ownerDashboard')}>
+        &larr; Back to Dashboard
+      </button>
       <h2>Update Food Item</h2>
 
       <div className="form-row-column">
@@ -166,6 +175,7 @@ const UpdateFoodItem = () => {
               </option>
             ))}
           </select>
+          {errors.restaurants && <div className="error">{errors.restaurants}</div>}
         </div>
 
         <div className="form-group">
@@ -178,6 +188,7 @@ const UpdateFoodItem = () => {
               </option>
             ))}
           </select>
+          {errors.foodItems && <div className="error">{errors.foodItems}</div>}
         </div>
       </div>
 
@@ -228,18 +239,6 @@ const UpdateFoodItem = () => {
           </div>
 
           <div className="form-group">
-            <label>Category</label>
-            <select
-              name="categoryId"
-              value={foodItemData.categoryId}
-              onChange={handleInputChange}
-            >
-              <option value="">Select a category</option>
-              {/* Add options for categories dynamically if needed */}
-            </select>
-          </div>
-
-          <div className="form-group">
             <label>Upload Image</label>
             <input type="file" onChange={handleFileChange} />
             {errors.imageFile && <div className="error">{errors.imageFile}</div>}
@@ -248,9 +247,6 @@ const UpdateFoodItem = () => {
           <div className="button-container">
             <button type="submit" className="update-button">Update Food Item</button>
           </div>
-
-          {successMessage && <div className="success">{successMessage}</div>}
-          {errors.submit && <div className="error">{errors.submit}</div>}
         </form>
       )}
     </div>
