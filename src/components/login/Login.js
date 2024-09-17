@@ -36,9 +36,9 @@ const Login = () => {
     } catch (err) {
       console.error('Error during login:', err); // Debugging line
       if (err.response && err.response.status === 404) {
-        setError('Email mismatched.');
+        setError('Invalid Credentials');
       } else if (err.response && err.response.status === 401) {
-        setError('Password mismatched.');
+        setError('Invalid Credentials');
       } else {
         setError('An error occurred.');
       }
@@ -73,7 +73,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </div>
       </form>
-      {error && <p className="message">{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <p className="register-prompt">
         Don't have an account? <a href="/register">Register here</a>
       </p>

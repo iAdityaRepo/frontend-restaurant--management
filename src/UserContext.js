@@ -3,11 +3,13 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     // Initialize state from session storage
     const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    console.log(user)
     if (user) {
       setLoggedInUser(user);
     }

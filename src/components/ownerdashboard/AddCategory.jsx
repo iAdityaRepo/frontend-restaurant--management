@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useUser } from '../../UserContext';  // Correct relative path to UserContext
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useUser } from '../../UserContext'; // Correct relative path to UserContext
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './AddCategory.css';
 
 const AddCategory = () => {
@@ -123,7 +123,7 @@ const AddCategory = () => {
 
   return (
     <div className="add-category-container">
-      <button className="back-button" onClick={handleBackClick}>Back to Dashboard</button>
+      <button className="category-back-button" onClick={handleBackClick}>Back </button>
       <h2>Add New Category</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -154,7 +154,7 @@ const AddCategory = () => {
             )}
           </select>
         </label>
-        <button type="submit">Add Category</button>
+        <button className="add-category-button" type="submit">Add Category</button>
         {successMessage && <p className="success">{successMessage}</p>}
       </form>
     </div>

@@ -52,14 +52,14 @@
 .restaurant-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 89px;
+  border-radius: 57px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   width: 250px; /* Adjust width as needed */
-  height: 275px; /* Increased height */
+  height: 303px; /* Increased height */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Ensures space between elements */
@@ -117,4 +117,9 @@
 
 .view-menu-button:hover {
   background-color: #e0e0e0;
+}
+
+
+.cart-btn-1 {
+  margin: 0;
 }

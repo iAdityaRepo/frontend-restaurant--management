@@ -10,6 +10,9 @@ const Navbar = () => {
     const { loggedInUser, logout } = useUser(); // Use loggedInUser and logout from UserContext
     const navigate = useNavigate();
 
+    console.log(loggedInUser);
+    
+
     const handleLogout = () => {
         logout(); // Call the logout function from context
         navigate('/'); // Redirect to home page after logout
@@ -34,11 +37,11 @@ const Navbar = () => {
                 <li><Link to="/contact">Contact Us</Link></li>
                 {loggedInUser ? (
                     <>
-                        <li>
+                        {loggedInUser?.role === 'USER' && <li>
                             <Link to="/cart" className="cart-icon-link">
                                 <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                             </Link>
-                        </li>
+                        </li>}
                         <li>
                             <button className="logout-icon" onClick={handleLogout}>
                                 <FontAwesomeIcon icon={faSignOutAlt} size="lg" className="logout-button-icon" />

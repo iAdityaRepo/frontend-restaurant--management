@@ -142,9 +142,7 @@ const UserDashboard = () => {
                   const createdAt = new Date(order.createdAt);
                   const currentTime = new Date();
                   const timeDiff = (currentTime - createdAt) / 1000;
-                  const isPendingFixed = (order.orderStatus === 'PENDING' && timeDiff > 30);
-                  const shouldShowFixedLabel = 
-                    isPendingFixed || order.orderStatus === 'CONFIRMED' || order.orderStatus === 'CANCELLED';
+                  const isCancelable = (order.orderStatus === 'PENDING' && timeDiff <= 30);
 
                   return (
                     <div className="order-card" key={order.id}>
@@ -166,19 +164,17 @@ const UserDashboard = () => {
                         )}
                       </div>
                       <p className="total-amount"><strong>Total Amount:</strong> Rs.{totalAmount.toFixed(2)}</p>
-                      <p><strong>Status:</strong> {order.orderStatus}</p>
+                      <p className={`order-status ${order.orderStatus === 'CANCELLED' ? 'cancelled-status' : ''}`}>
+                        <strong>Status:</strong> {order.orderStatus}
+                      </p>
                       <div className="order-actions">
-                        {shouldShowFixedLabel ? (
-                          <span className="fixed-status">Fixed</span>
-                        ) : (
-                          (order.orderStatus === 'PENDING' && timeDiff <= 30) && (
-                            <button 
-                              className="cancel-button" 
-                              onClick={() => handleCancelOrder(order.id)}
-                            >
-                              Cancel
-                            </button>
-                          )
+                        {isCancelable && (
+                          <button 
+                            className="cancel-button" 
+                            onClick={() => handleCancelOrder(order.id)}
+                          >
+                            Cancel
+                          </button>
                         )}
                       </div>
                     </div>

@@ -203,7 +203,7 @@ const FoodItemList = () => {
               <tbody>
                 {foodItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.foodName || 'No name available'}</td>
+                    <td>{item.foodItemName || 'No name available'}</td>
                     <td>{item.description || 'No description available'}</td>
                     <td>{item.categoryName || 'No category available'}</td>
                     <td>Rs. {item.price.toFixed(2)}</td>
@@ -211,7 +211,7 @@ const FoodItemList = () => {
                       {item.imageData ? (
                         <img
                           src={`data:image/jpeg;base64,${item.imageData}`}
-                          alt={item.foodName}
+                          alt={item.foodItemName}
                           className="food-image"
                         />
                       ) : (
@@ -228,7 +228,7 @@ const FoodItemList = () => {
                       {addError[item.id] && <div className="error-message">{addError[item.id]}</div>}
                     </td>
                     <td>
-                      <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
+                      <button id='add-to-cart-btn' onClick={() => handleAddToCart(item)}>Add to Cart</button>
                       {addSuccess[item.id] && (
                         <div className="success-message">{addSuccess[item.id]}</div>
                       )}
@@ -259,7 +259,7 @@ const FoodItemList = () => {
               <tbody>
                 {cartItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.foodName || 'No name available'}</td>
+                    <td>{item.foodItemName || 'No name available'}</td>
                     <td>{item.quantity || 'N/A'}</td>
                     <td>Rs. {item.price.toFixed(2)}</td>
                     <td>Rs. {(item.price * item.quantity).toFixed(2)}</td>

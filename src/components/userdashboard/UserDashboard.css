@@ -1,3 +1,4 @@
+/* General Dashboard Layout */
 .user-dashboard {
     display: flex; /* Use flex layout to position the sidebar and content */
     padding: 20px;
@@ -5,7 +6,7 @@
 }
 
 .sidebar {
-    width: 200px; /* Adjust width as needed */
+    width: 300px; /* Adjust width as needed */
     background-color: #f8f9fa;
     padding: 20px;
     border-right: 1px solid #ddd;
@@ -15,16 +16,18 @@
     display: block;
     padding: 10px;
     margin: 10px 0;
-    background-color: #007bff;
+    background-color: rgb(19, 132, 117);
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
+    font-size: 18px; /* Adjust font size */
+    transition: background-color 0.3s ease; /* Smooth color transition */
 }
 
 .sidebar-button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Change to a color of your choice */
 }
 
 .content {
@@ -32,20 +35,42 @@
     padding: 20px;
 }
 
-.profile-panel,
+/* Profile Panel Styles */
+.profile-panel {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    display: none; /* Hidden by default */
+    font-size: 20px; /* Adjust font size */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Add shadow for better appearance */
+}
+
+.profile-panel.visible {
+    display: block; /* Show panel when visible class is added */
+    width: 400px;
+    height: 230px; /* Adjust height as needed */
+}
+
+/* Orders Panel Styles */
 .orders-panel {
     margin-top: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    display: none;
+    display: none; /* Hidden by default */
+    font-size: 20px; /* Adjust font size */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: Add shadow for better appearance */
 }
 
-.profile-panel.visible,
 .orders-panel.visible {
-    display: block;
+    display: block; /* Show panel when visible class is added */
+    width: 100%; /* Adjust width as needed */
 }
 
+/* Orders Grid Styles */
 .orders-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
@@ -81,24 +106,30 @@
     font-weight: bold;
 }
 
+/* Cancelled Order Status in Red */
+.order-status {
+    font-weight: bold;
+}
+
+.order-status.cancelled-status {
+    color: red; /* Apply red color for cancelled orders */
+}
+
 .order-actions {
     margin-top: 10px;
 }
 
+/* Cancel Button */
 .cancel-button {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Red color for cancel button */
     color: #fff;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth color transition */
 }
 
 .cancel-button:hover {
-    background-color: #c82333;
-}
-
-.fixed-status {
-    color: #28a745;
-    font-weight: bold;
+    background-color: #c82333; /* Darker red for hover */
 }

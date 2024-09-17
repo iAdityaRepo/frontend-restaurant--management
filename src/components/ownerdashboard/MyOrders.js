@@ -17,9 +17,11 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (loggedInUser && loggedInUser.id) {
+      
       axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
         .then(response => {
           if (Array.isArray(response.data)) {
+            setError(null)
             setRestaurants(response.data);
           } else {
             setError('Failed to fetch restaurants: Unexpected data format.');
@@ -31,6 +33,7 @@ const MyOrders = () => {
           setLoading(false);
         });
     } else {
+      console.log("Here")
       setError('User ID is not available.');
       setLoading(false);
     }
@@ -120,7 +123,16 @@ const MyOrders = () => {
                   </div>
                   <p>Total Amount: Rs.{order.orderDetails.reduce((total, item) => total + (item.quantity * item.price), 0).toFixed(2)}</p>
                   <p>Created At: {new Date(order.createdAt).toLocaleString()}</p>
-                  <p>Status: <span className={`status ${order.orderStatus.toLowerCase()}`}>{order.orderStatus === 'PENDING' ? 'Pending' : 'Closed'}</span></p>
+                  <p>Status: 
+                    <span 
+                      className={`status ${order.orderStatus.toLowerCase()}`}
+                    >
+                      {order.orderStatus === 'CANCELLED' ? 'Cancelled' : 
+                        order.orderStatus === 'CONFIRMED' ? 'Confirmed' : 
+                        'Pending'
+                      }
+                    </span>
+                  </p>
                   {order.orderStatus === 'PENDING' && (
                     <button className="complete" onClick={() => handleStatusUpdate(order.id)}>Complete</button>
                   )}

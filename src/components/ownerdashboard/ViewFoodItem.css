@@ -82,6 +82,7 @@ h2 {
 .food-item-list th, .food-item-list td {
   border: 1px solid #ddd;
   padding: 8px;
+  width: 15rem;
 }
 
 .food-item-list th {
@@ -91,6 +92,7 @@ h2 {
 
 .food-item-list td {
   text-align: left;
+  width: 15rem;
 }
 
 .food-item-image {

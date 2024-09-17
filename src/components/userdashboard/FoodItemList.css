@@ -1,6 +1,7 @@
 /* General food item list styles */
 .food-item-list {
-  padding: 0px;
+  padding: 1rem;
+  overflow-x: scroll;
 }
 
 /* Table and food item rows */
@@ -21,7 +22,17 @@
 
 .food-item-list th {
   background-color: #f4f4f4;
+  width: 15rem;
 }
+
+.food-item-list tr {
+  
+}
+.food-item-list td {
+  /* width: 10rem; */
+}
+
+
 
 /* Align action buttons to the left */
 .food-item-list .action-cell {
@@ -41,6 +52,7 @@
   white-space: nowrap; /* Prevents text from wrapping */
   margin-right: 90px; /* Adjust the margin if needed */
 }
+
 
 .food-item-list .action-cell button:hover {
   background-color: #e65c00;
@@ -163,3 +175,10 @@
   max-width: 600px;
   margin: 0 auto; /* Center the form */
 }
+
+
+table tbody tr td #add-to-cart-btn {
+  margin: 0;
+  width: 12rem;
+}
+

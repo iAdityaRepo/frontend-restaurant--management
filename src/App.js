@@ -19,6 +19,8 @@ import Cart from './components/userdashboard/Cart';
 import FilledCart from './components/userdashboard/FilledCart'; // Import FilledCart component
 import FoodItemList from './components/userdashboard/FoodItemList';
 import { UserProvider } from './UserContext'; // Import UserProvider
+import ContactUs from './components/contactus/ContactUs'; // Import ContactUs component
+
 
 import './App.css';
 
@@ -45,6 +47,7 @@ function App() {
           <Route path="/filledCart" element={<FilledCart />} /> {/* Route for FilledCart */}
           <Route path="/myOrder" element={<MyOrders />} /> {/* Route for MyOrders */}
           <Route path="/viewMenu/:restaurantId" element={<ViewMenu />} /> {/* Route for ViewMenu */}
+          <Route path="/contact" element={<ContactUs />} /> {/* Route for ContactUs */}
           <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home for undefined routes */}
         </Routes>
       </div>

@@ -118,19 +118,18 @@ const Register = () => {
     } catch (error) {
       console.error('Error registering user:', error.response?.data || error.message);
 
-      // Extract and set backend error messages
-      if (error.response?.data?.errors) {
-        setErrors(error.response.data.errors);
-      } else {
-        setErrors({ general: 'Registration failed. Please try again.' });
-      }
+      // Extract and display backend error messages
+      const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+      alert(`Error: ${errorMessage}`);
+
+      // Clear form errors
+      setErrors({});
     }
   };
 
   return (
     <div className="register-container">
       <h1>Register</h1>
-      {errors.general && <p className="error">{errors.general}</p>}
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit} className='form'>
         <div className="form-group">

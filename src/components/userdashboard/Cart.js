@@ -56,7 +56,7 @@ const Cart = () => {
               restaurants.map((restaurant) => (
                 <div key={restaurant.id} className="restaurant-card">
                   <button
-                    className="restaurant-button"
+                    className="restaurant-button cart-btn-1"
                     onClick={() => handleSelectRestaurant(restaurant.id)}
                   >
                     <div className="restaurant-image-container">

@@ -4,7 +4,7 @@
   margin: 100px auto;
   padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 73px;
   background-color: #f9f9f9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -64,25 +64,26 @@
   font-size: 24px;
   padding: 0;
   box-sizing: border-box;
+  margin-left: 50px;
 }
 
 .login-container button:hover {
   background-color: #0056b3;
 }
 
-/* Scoped Message styling */
-.login-container .message {
+/* Scoped Error Message styling */
+.login-container .error-message {
   text-align: center;
   margin-top: 10px;
-  font-size: 16px;
-  color: #333;
+  font-size: 21px;
+  color: red; /* Make the error message red */
 }
 
 /* Scoped Registration prompt */
 .login-container .register-prompt {
   text-align: center;
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 21px;
 }
 
 .login-container .register-prompt a {

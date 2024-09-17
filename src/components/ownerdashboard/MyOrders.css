@@ -3,6 +3,7 @@
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  position: relative; /* Ensure that the button's absolute positioning is relative to this container */
 }
 
 .my-orders h2 {
@@ -18,7 +19,7 @@
 .restaurant-list select {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 23px;
 }
 
 /* Order cards layout */
@@ -34,6 +35,7 @@
   padding: 15px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
 }
 
 .order-card h4 {
@@ -52,12 +54,16 @@
   font-weight: bold;
 }
 
-.order-card .status.pending {
+.order-card .status.cancelled {
+  color: red;
+}
+
+.order-card .status.confirmed {
   color: green;
 }
 
-.order-card .status.closed {
-  color: gray;
+.order-card .status.pending {
+  color: orange;
 }
 
 button.complete {
@@ -88,7 +94,9 @@ button.complete:active {
 
 .error {
   color: red;
-}/* Adjusted styles for the back button */
+}
+
+/* Adjusted styles for the back button */
 .back-button {
   background-color: rgb(19, 132, 117);
   border: none;
@@ -111,12 +119,4 @@ button.complete:active {
 
 .back-button:active {
   background-color: #004494;
-}
-
-/* General styles for MyOrders */
-.my-orders {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative; /* Ensure that the button's absolute positioning is relative to this container */
 }

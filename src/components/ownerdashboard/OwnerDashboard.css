@@ -17,7 +17,7 @@
 
 /* Sidebar Buttons */
 .sidebar-button {
-  width: 100%;
+  width: 80%;
   padding: 15px;
   font-size: 16px;
   color: #fff;
@@ -43,15 +43,16 @@
 .submenu-button {
   width: calc(100% - 10px); /* Adjusted to match sidebar */
   padding: 12px;
-  font-size: 14px;
+  font-size: 21px;
   color: #fff;
-  background-color: rgb(19, 132, 117); /* Set the background color */
   border: none;
   border-radius: 4px;
   margin-bottom: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s; /* Added transition for transform */
   margin-left: 10px; /* Reduced left margin */
+  background-color: slategray
+
 }
 
 .submenu-button:hover {
@@ -146,7 +147,7 @@
 }
 
 .navbar-title {
-    font-size: 1.5em;
+    font-size: 2.5em;
     color: orange;
     font-weight: bold;
     margin: 0; /* Remove margin to ensure tight alignment with icon */
@@ -161,20 +162,24 @@
     align-items: center;
 }
 
+.navbar-menu ul {
+  display: flex;
+  gap: 2rem;
+}
+
 .navbar-menu li {
-    margin-left: 20px;
+    /* margin-left: 140px; */
 }
 
 .navbar-menu li a {
     color: orange;
     text-decoration: none;
-    font-size: 1.1em;
+    font-size: 1.8em;
     transition: all 0.3s;
 }
 
 .navbar-menu li a:hover {
     color: darkorange;
-    font-size: 1.2em;
     font-weight: bold;
     text-decoration: underline;
     transform: scale(1.1);
@@ -202,6 +207,8 @@
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin: 0;
+    width: 5rem;
 }
 
 .logout-icon:hover {
