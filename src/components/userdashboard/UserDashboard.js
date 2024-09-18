@@ -13,6 +13,9 @@ const UserDashboard = () => {
   const [loading, setLoading] = useState(false); // State to handle loading
   const [error, setError] = useState(null); // State to handle errors
 
+  // Timer state
+  const [cancelTimers, setCancelTimers] = useState({});
+
   // Fetch profile data
   const fetchProfileData = async () => {
     setLoading(true);
@@ -35,6 +38,7 @@ const UserDashboard = () => {
     try {
       const response = await axios.get(`http://localhost:8082/order/user/${loggedInUser.id}`);
       setOrdersData(response.data);
+      initializeCancelTimers(response.data);
     } catch (error) {
       console.error("Error fetching orders data:", error);
       setError('Failed to load orders data.');
@@ -52,6 +56,21 @@ const UserDashboard = () => {
       console.error('Error fetching restaurants data:', error);
       setError('Failed to load restaurants data.');
     }
+  };
+
+  // Initialize timers for each order
+  const initializeCancelTimers = (orders) => {
+    const timers = {};
+    orders.forEach(order => {
+      const createdAt = new Date(order.createdAt);
+      const currentTime = new Date();
+      const timeDiff = (currentTime - createdAt) / 1000;
+      if (order.orderStatus === 'PENDING' && timeDiff <= 30) {
+        const remainingTime = 30 - Math.floor(timeDiff);
+        timers[order.id] = remainingTime;
+      }
+    });
+    setCancelTimers(timers);
   };
 
   // Handle profile button click
@@ -96,6 +115,25 @@ const UserDashboard = () => {
     const restaurant = restaurantsData.find(resto => resto.id === restaurantId);
     return restaurant ? restaurant.address : 'Unknown';
   };
+
+  // Update cancel timers every second
+  useEffect(() => {
+    const intervals = Object.keys(cancelTimers).map(orderId => {
+      return setInterval(() => {
+        setCancelTimers(prevTimers => {
+          const updatedTimers = { ...prevTimers };
+          updatedTimers[orderId] -= 1;
+          if (updatedTimers[orderId] <= 0) {
+            clearInterval(intervals[orderId]);
+            delete updatedTimers[orderId];
+          }
+          return updatedTimers;
+        });
+      }, 1000);
+    });
+
+    return () => intervals.forEach(interval => clearInterval(interval));
+  }, [cancelTimers]);
 
   if (!loggedInUser) {
     return <p>Please log in to view your profile.</p>;
@@ -169,12 +207,17 @@ const UserDashboard = () => {
                       </p>
                       <div className="order-actions">
                         {isCancelable && (
-                          <button 
-                            className="cancel-button" 
-                            onClick={() => handleCancelOrder(order.id)}
-                          >
-                            Cancel
-                          </button>
+                          <div className="cancel-container">
+                            <button 
+                              className="cancel-button" 
+                              onClick={() => handleCancelOrder(order.id)}
+                            >
+                              Cancel
+                            </button>
+                            {cancelTimers[order.id] !== undefined && cancelTimers[order.id] > 0 && (
+                              <span className="timer"> ({cancelTimers[order.id]}s)</span>
+                            )}
+                          </div>
                         )}
                       </div>
                     </div>

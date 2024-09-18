@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import { useUser } from '../../UserContext';
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import ToastContainer styles
 import './UpdateFoodItem.css';
 
 const UpdateFoodItem = () => {
@@ -143,13 +145,13 @@ const UpdateFoodItem = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert('Food item updated successfully!');
+      toast.success('Food item updated successfully!');
       setErrors({});
     } catch (error) {
       if (error.response) {
-        alert(`Error: ${error.response.data.message || 'Failed to update food item.'}`);
+        toast.error(`Error: ${error.response.data.message || 'Failed to update food item.'}`);
       } else {
-        alert('Failed to update food item.');
+        toast.error('Failed to update food item.');
       }
     }
   };
@@ -244,11 +246,11 @@ const UpdateFoodItem = () => {
             {errors.imageFile && <div className="error">{errors.imageFile}</div>}
           </div>
 
-          <div className="button-container">
-            <button type="submit" className="update-button">Update Food Item</button>
-          </div>
+          <button type="submit" className="submit-button">Update Food Item</button>
         </form>
       )}
+
+      <ToastContainer />
     </div>
   );
 };

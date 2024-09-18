@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../UserContext'; // Import useUser hook
 import './AddRestaurant.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddRestaurant = () => {
   const { loggedInUser } = useUser(); // Access logged-in user from context
@@ -85,12 +87,14 @@ const AddRestaurant = () => {
         setContactNumber('');
         setDescription('');
         setImageFile(null);
+        toast.success('Restaurant successfully created.');
         setTimeout(() => navigate('/ownerDashboard'), 2000);
       } else {
-        setError({ general: `Failed to add restaurant. Response status: ${response.status}` });
+        toast.error(`Failed to add restaurant. Response status: ${response.status}`);
       }
     } catch (error) {
-      setError({ general: 'Failed to add restaurant.' });
+      const errorMessage = error.response?.data?.message || 'Failed to add restaurant.';
+      toast.error(errorMessage);
     }
   };
 
@@ -104,7 +108,6 @@ const AddRestaurant = () => {
         &larr; Back to Dashboard
       </button>
       <h2>Add Restaurant</h2>
-      {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <div className='label'><label htmlFor="restaurantName">Restaurant Name:</label></div>
@@ -166,6 +169,7 @@ const AddRestaurant = () => {
         <button type="submit">Add Restaurant</button>
       </form>
       {error.general && <p className="error-container error">{error.general}</p>}
+      <ToastContainer />
     </div>
   );
 };

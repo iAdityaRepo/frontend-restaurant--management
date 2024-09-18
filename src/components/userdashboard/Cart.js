@@ -54,11 +54,11 @@ const Cart = () => {
           <div className="restaurants-list">
             {restaurants.length > 0 ? (
               restaurants.map((restaurant) => (
-                <div key={restaurant.id} className="restaurant-card">
-                  <button
+                <div onClick={() => handleSelectRestaurant(restaurant.id)} key={restaurant.id} className="restaurant-card">
+                  {/* <button
                     className="restaurant-button cart-btn-1"
                     onClick={() => handleSelectRestaurant(restaurant.id)}
-                  >
+                  > */}
                     <div className="restaurant-image-container">
                       {restaurant.imageData ? (
                         <img
@@ -73,7 +73,7 @@ const Cart = () => {
                     <span className="restaurant-name">{restaurant.restaurantName}</span>
                     <p>{restaurant.address || 'No address available'}</p>
                     <p>{restaurant.contactNumber || 'No contact number available'}</p>
-                  </button>
+                  {/* </button> */}
                 </div>
               ))
             ) : (

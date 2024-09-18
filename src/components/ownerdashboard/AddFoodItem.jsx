@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
 import './AddFoodItem.css';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
 
 const AddFoodItem = () => {
   const { loggedInUser } = useUser();
@@ -125,6 +127,7 @@ const AddFoodItem = () => {
 
       if (response.status === 201) {
         setSuccess('Food item successfully added.');
+        toast.success('Food item successfully added.'); // Display toast for success
         setFoodName('');
         setSelectedRestaurant('');
         setDescription('');
@@ -135,11 +138,8 @@ const AddFoodItem = () => {
         setErrors({});
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        window.alert(error.response.data.message);
-      } else {
-        window.alert('Failed to add food item.');
-      }
+      const errorMessage = error.response?.data?.message || 'Failed to add food item.';
+      toast.error(errorMessage); // Display toast for error
     }
   };
 
@@ -263,7 +263,7 @@ const AddFoodItem = () => {
           <button type="button" className="back-button" onClick={handleBack}>Back</button>
         </div>
       </form>
-      {success && <p className="success">{success}</p>}
+      <ToastContainer /> {/* Include ToastContainer in the render */}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css'; // Import CSS for styling
+import SuccessModal from './SuccessModal'; // Import Success Modal component
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,8 @@ const Register = () => {
     role: 'USER',
   });
   const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState(null);
+  const [successModalVisible, setSuccessModalVisible] = useState(false); // For modal visibility
+  const [successMessage, setSuccessMessage] = useState(''); // For storing success message
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,9 +80,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Clear previous success message
-    setSuccess(null);
-
     // Validate form data
     if (!validateForm()) {
       return;
@@ -105,7 +104,8 @@ const Register = () => {
       });
 
       console.log('User registered successfully:', response.data);
-      setSuccess('Registration successful! Please log in.');
+      setSuccessMessage('Registered Successfully!'); // Set success message
+      setSuccessModalVisible(true); // Show success modal
       setFormData({
         name: '',
         email: '',
@@ -127,10 +127,14 @@ const Register = () => {
     }
   };
 
+  const handleModalClose = () => {
+    setSuccessModalVisible(false);
+    window.location.href = '/'; // Redirect to homepage
+  };
+
   return (
     <div className="register-container">
       <h1>Register</h1>
-      {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit} className='form'>
         <div className="form-group">
           <div className='label'><label htmlFor="name">Name:</label></div>
@@ -215,6 +219,9 @@ const Register = () => {
           <button type="submit">Register</button>
         </div>
       </form>
+
+      {/* Success Modal */}
+      {successModalVisible && <SuccessModal message={successMessage} onClose={handleModalClose} />} {/* Pass success message */}
     </div>
   );
 };

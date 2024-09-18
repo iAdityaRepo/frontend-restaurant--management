@@ -128,8 +128,29 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* Smooth color transition */
+    width: 103px;
 }
 
 .cancel-button:hover {
     background-color: #c82333; /* Darker red for hover */
 }
+
+.order-actions .cancel-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .timer {
+    color: #ff9800;
+    font-weight: bold;
+  }
+  

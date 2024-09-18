@@ -90,7 +90,7 @@ const OwnerDashboard = () => {
           <div className="submenu">
             <button className="submenu-button" onClick={() => handleNavigation('/addFoodItem')}>Add Food Item</button>
             <button className="submenu-button" onClick={() => handleNavigation('/updateFoodItem')}>Update Food Item</button>
-            <button className="submenu-button" onClick={() => handleNavigation('/viewFoodItem')}>View Food Items</button>
+            {/* Removed the View Food Item button */}
           </div>
         )}
       </div>

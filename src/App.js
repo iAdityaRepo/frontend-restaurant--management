@@ -20,14 +20,18 @@ import FilledCart from './components/userdashboard/FilledCart'; // Import Filled
 import FoodItemList from './components/userdashboard/FoodItemList';
 import { UserProvider } from './UserContext'; // Import UserProvider
 import ContactUs from './components/contactus/ContactUs'; // Import ContactUs component
-
+import { ToastContainer } from 'react-toastify';
 
 import './App.css';
+
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <UserProvider>
       <div className="App">
+      <ToastContainer />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
