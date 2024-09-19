@@ -210,8 +210,11 @@ table tbody tr td #add-to-cart-btn:hover {
   align-items: center;
   gap: 1rem;
   padding-bottom: 4rem;
+  
 }
-
+.address-selection button{
+  width: 250px;   
+}
 #address-select {
   font-size: 1.5rem;
 }

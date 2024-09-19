@@ -24,6 +24,7 @@ const FoodItemList = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       if (userId) {
+        toast.error(null)
         try {
           const response = await axios.get('http://localhost:8082/cart/getAll', {
             params: { restaurantId, userId },
@@ -40,7 +41,7 @@ const FoodItemList = () => {
           toast.error('Failed to fetch cart items.');
         }
       } else {
-        toast.error('User not logged in.');
+        // toast.error('User not logged in.');
       }
     };
 
@@ -294,8 +295,8 @@ const FoodItemList = () => {
             <button type="button" onClick={() => setShowAddressModal(true)}>
               Add New Address
             </button>
-          </div>
           <button type="submit">Place Order</button>
+          </div>
         </form>
       </div>
 
