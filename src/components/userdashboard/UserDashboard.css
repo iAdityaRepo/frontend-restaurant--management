@@ -51,6 +51,7 @@
     display: block; /* Show panel when visible class is added */
     width: 400px;
     height: 230px; /* Adjust height as needed */
+    border-radius: 6rem;
 }
 
 /* Orders Panel Styles */

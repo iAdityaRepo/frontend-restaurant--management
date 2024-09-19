@@ -37,8 +37,11 @@ const UserDashboard = () => {
     setError(null);
     try {
       const response = await axios.get(`http://localhost:8082/order/user/${loggedInUser.id}`);
-      setOrdersData(response.data);
-      initializeCancelTimers(response.data);
+      const orders = response.data;
+      setOrdersData(orders);
+      if (orders.length > 0) {
+        initializeCancelTimers(orders);
+      }
     } catch (error) {
       console.error("Error fetching orders data:", error);
       setError('Failed to load orders data.');
@@ -170,7 +173,11 @@ const UserDashboard = () => {
             {loading && <p>Loading...</p>}
             {error && <p className="error-message">{error}</p>}
             <h2>Your Orders</h2>
-            {ordersData && !loading && !error && (
+            {ordersData === null ? (
+              <p>No orders data available.</p>
+            ) : ordersData.length === 0 ? (
+              <p>Empty Orders</p>
+            ) : (
               <div className="orders-grid">
                 {ordersData.map(order => {
                   const totalAmount = order.orderDetails.reduce(

@@ -16,8 +16,6 @@ const FoodItemList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantities, setQuantities] = useState({});
-  const [addError, setAddError] = useState({});
-  const [addSuccess, setAddSuccess] = useState({});
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [showAddressModal, setShowAddressModal] = useState(false);
@@ -26,7 +24,6 @@ const FoodItemList = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       if (userId) {
-        setError(null)
         try {
           const response = await axios.get('http://localhost:8082/cart/getAll', {
             params: { restaurantId, userId },
@@ -40,10 +37,10 @@ const FoodItemList = () => {
           setQuantities(initialQuantities); // Initialize quantities from cart
         } catch (error) {
           console.error('Error fetching cart items:', error);
-          setError('Failed to fetch cart items.');
+          toast.error('Failed to fetch cart items.');
         }
       } else {
-        setError('User not logged in.');
+        toast.error('User not logged in.');
       }
     };
 
@@ -61,7 +58,7 @@ const FoodItemList = () => {
         );
       } catch (error) {
         console.error('Error fetching food items:', error);
-        setError('Failed to fetch food items.');
+        toast.error('Failed to fetch food items.');
       } finally {
         setLoading(false);
       }
@@ -77,7 +74,7 @@ const FoodItemList = () => {
         setAddresses(response.data);
       } catch (error) {
         console.error('Error fetching addresses:', error);
-        setError('Failed to fetch addresses.');
+        toast.error('Failed to fetch addresses.');
       }
     }
   };
@@ -107,25 +104,18 @@ const FoodItemList = () => {
 
       try {
         await axios.post('http://localhost:8082/cart/addCart', cartInDto);
-        setAddSuccess((prevSuccess) => ({ ...prevSuccess, [item.id]: 'Added to cart successfully!' }));
-        setAddError((prevError) => ({ ...prevError, [item.id]: null }));
+        toast.success('Added to cart successfully!');
 
         const response = await axios.get('http://localhost:8082/cart/getAll', {
           params: { restaurantId, userId },
         });
         setCartItems(response.data);
-
-        setTimeout(() => {
-          setAddSuccess((prevSuccess) => ({ ...prevSuccess, [item.id]: null }));
-        }, 3000);
       } catch (error) {
         console.error('Error adding item to cart:', error);
-        setAddError((prevError) => ({ ...prevError, [item.id]: 'Failed to add item to cart.' }));
-        setAddSuccess((prevSuccess) => ({ ...prevSuccess, [item.id]: null }));
+        toast.error('Failed to add item to cart.');
       }
     } else {
-      setAddError((prevError) => ({ ...prevError, [item.id]: 'Quantity must be greater than 0' }));
-      setAddSuccess((prevSuccess) => ({ ...prevSuccess, [item.id]: null }));
+      toast.error('Quantity must be greater than 0');
     }
   };
 
@@ -135,19 +125,19 @@ const FoodItemList = () => {
       setCartItems(cartItems.filter((item) => item.id !== cartId));
     } catch (error) {
       console.error('Error removing item from cart:', error);
-      setError('Failed to remove item from cart.');
+      toast.error('Failed to remove item from cart.');
     }
   };
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!userId) {
-      setError('User not logged in.');
+      toast.error('User not logged in.');
       return;
     }
 
     if (!selectedAddressId) {
-      setError('Please select or add an address.');
+      toast.error('Please select or add an address.');
       return;
     }
 
@@ -181,7 +171,7 @@ const FoodItemList = () => {
       setSelectedAddressId(newAddress.addressId);
     } catch (error) {
       console.error('Error adding address:', error);
-      setError('Failed to add address.');
+      toast.error('Failed to add address.');
     } finally {
       setShowAddressModal(false);
     }
@@ -192,7 +182,6 @@ const FoodItemList = () => {
   };
 
   if (loading) return <div className="loading">Loading food items...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div className="food-item-list-container">
@@ -236,13 +225,11 @@ const FoodItemList = () => {
                       value={quantities[item.id]}
                       onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
                     />
-                    {addError[item.id] && <div className="error-message">{addError[item.id]}</div>}
                   </td>
                   <td>
                     <button id="add-to-cart-btn" onClick={() => handleAddToCart(item)}>
                       Add to Cart
                     </button>
-                    {addSuccess[item.id] && <div className="success-message">{addSuccess[item.id]}</div>}
                   </td>
                 </tr>
               ))}
@@ -274,7 +261,9 @@ const FoodItemList = () => {
                   <td>Rs. {item.price.toFixed(2)}</td>
                   <td>Rs. {(item.price * item.quantity).toFixed(2)}</td>
                   <td>
-                    <button className='cart-remove-btn' onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
+                    <button className='cart-remove-btn' onClick={() => handleRemoveFromCart(item.id)}>
+                      Remove
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -285,30 +274,33 @@ const FoodItemList = () => {
         )}
       </div>
 
-      <div className="address-selection">
-        <h3>Select Address</h3>
-        <select
-          value={selectedAddressId || ''}
-          onChange={(e) => setSelectedAddressId(Number(e.target.value))}
-          onClick={handleAddressDropdownClick}
-          id='address-select'
-        >
-          <option value="">Select Address</option>
-          {addresses.map((address) => (
-            <option key={address.addressId} value={address.addressId}>
-              {`${address.street}, ${address.city}, ${address.state}, ${address.pinCode}`}
-            </option>
-          ))}
-        </select>
-        <button className='cart-action-btn' onClick={() => setShowAddressModal(true)}>Add New Address</button>
-        <button className='cart-action-btn' onClick={handlePlaceOrder}>Place Order</button>
+      <div className="order-summary">
+        <h3>Order Summary</h3>
+        <form onSubmit={handlePlaceOrder}>
+          <div className="address-selection">
+            <label>Select Address:</label>
+            <select
+              onChange={(e) => setSelectedAddressId(e.target.value)}
+              onClick={handleAddressDropdownClick}
+              value={selectedAddressId || ''}
+            >
+              <option value="">Select an address</option>
+              {addresses.map((address) => (
+                <option key={address.addressId} value={address.addressId}>
+                  {address.street}, {address.city}, {address.state}, {address.pinCode}
+                </option>
+              ))}
+            </select>
+            <button type="button" onClick={() => setShowAddressModal(true)}>
+              Add New Address
+            </button>
+          </div>
+          <button type="submit">Place Order</button>
+        </form>
       </div>
 
-      {/* <div className="place-order-button">
-      </div> */}
-
       {showAddressModal && (
-        <AddressModal onAddAddress={handleAddAddress} onClose={() => setShowAddressModal(false)} />
+        <AddressModal onClose={() => setShowAddressModal(false)} onSave={handleAddAddress} />
       )}
 
       <ToastContainer />

@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../../UserContext'; // Import useUser hook
 import './Login.css'; // Import your CSS file
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation(); // Use useLocation to access query parameters
   const { login } = useUser(); // Access login function from context
+
+  useEffect(() => {
+    // Check for alert query parameter and show toast if present
+    const params = new URLSearchParams(location.search);
+    if (params.get('alert') === 'please_login') {
+      toast.warn('Please log in first to access this page.');
+    }
+  }, [location.search]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,6 +88,7 @@ const Login = () => {
       <p className="register-prompt">
         Don't have an account? <a href="/register">Register here</a>
       </p>
+      <ToastContainer />
     </div>
   );
 };

@@ -1,0 +1,65 @@
+.contact-us-page {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 78px;
+  }
+  .contact-us-page h1 {
+    text-align: center;
+  }
+  .contact-us-page form {
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-us-page label {
+    margin-bottom: 15px;
+  }
+  .contact-us-page input,
+  .contact-us-page textarea {
+    width: 93%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border-radius: 2rem;
+    
+  }
+  .contact-us-page .error {
+    color: red;
+    display: block;
+    margin-top: 5px;
+  }
+  .contact-us-page .response-message {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .checkmark {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(255, 191, 0);
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    position: relative;
+    overflow: hidden;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+  }
+  .checkmark.show {
+    transform: scale(1);
+  }
+  .checkmark::before {
+    content: '\2713'; /* Unicode checkmark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+  }
+  .form{
+    margin-left: 1.8em;
+  }

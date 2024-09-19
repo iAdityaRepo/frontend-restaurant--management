@@ -5,7 +5,8 @@
     max-width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjusted to space between brand and menu */
+    justify-content: space-between;
+    height: 2.5rem;
 }
 
 /* Navbar brand styles */
