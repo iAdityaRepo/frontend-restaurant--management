@@ -1,82 +1,110 @@
-/* Container styling */
+/* Scoped Container styling */
 .register-container {
-  max-width: 500px; /* Adjust width as needed */
-  margin: 50px auto; /* Center the form vertically and horizontally */
-  padding: 20px;
+  max-width: 600px; /* Increased width */
+  margin: 100px auto; /* Center and vertical margin */
+  padding: 20px; /* Padding around the container */
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9; /* Light background for better visibility */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
-h1 {
+/* Scoped Header styling */
+.register-container h1 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333; /* Darker text for better readability */
+  margin-bottom: 20px; /* Margin at the bottom */
+  font-size: 24px; /* Font size */
+  color: #333;
 }
 
-/* Flex container for form groups */
-.form-group {
+/* Scoped Flex container for form groups */
+.register-container .form-group {
   display: flex;
-  align-items: center; /* Align items vertically */
-  margin-bottom: 15px;
-  width: 100%; /* Ensure form groups take full width */
+  align-items: center; /* Align items center to ensure labels and inputs are aligned */
+  margin-bottom: 15px; /* Space between form groups */
+  min-height: 60px; /* Reserve space for error messages */
 }
 
-/* Label styling */
-.form-group label {
-  flex: 0 0 150px; /* Set a fixed width for labels, adjust as needed */
-  margin-bottom: 0;
-  font-weight: bold; /* Makes labels stand out */
-  text-align: right; /* Align text to the right for better visual alignment */
-  white-space: nowrap; /* Prevent label from wrapping to a new line */
+/* Scoped Label styling */
+.register-container .form-group .label {
+  width: 30%; /* Adjust width as needed */
+  font-weight: bold;
+  margin-right: 15px; /* Space between label and input */
+  margin-left: 10px; /* Increase left margin to align better with input fields */
+  margin-bottom: 24px; /* Further increase bottom margin to align vertically with input fields */
+  text-align: left;
+  font-size: 24px; /* Increased font size */
+  text-transform: uppercase;
 }
 
-/* Input and select styling */
-.form-group input, 
-.form-group select {
-  flex: 1; /* Input takes up the remaining space */
-  padding: 10px;
+/* Scoped Input container */
+.register-container .form-group .input {
+  flex: 1; /* Flex basis for input container */
+}
+
+/* Scoped Input and select styling */
+.register-container .form-group input,
+.register-container .form-group select {
+  width: calc(100% - 16px); /* Full width minus right margin */
+  padding: 10px; /* Padding inside input/select fields */
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px; /* Adjust font size for better readability */
-  width: 100%; /* Ensure inputs take full width of the flex container */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
+  font-size: 16px; /* Font size */
+  box-sizing: border-box;
+  margin-right: 8px; /* Right margin to avoid touching the container's border */
 }
 
-/* Button styling */
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
+/* Scoped Role dropdown list styling */
+.register-container .form-group select {
+  font-size: 16px; /* Font size for dropdown */
+}
+
+/* Scoped Error message styling */
+.register-container .error {
+  color: red;
+  font-size: 12px; /* Font size */
+  margin-top: 2px; /* Margin */
+  display: block;
+  min-height: 20px; /* Reserve space for error messages */
+}
+
+/* Scoped Success message styling */
+.register-container .success {
+  color: green;
+  font-size: 14px; /* Font size */
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Scoped Button container */
+.register-container .button-container {
+  display: flex;
+  justify-content: center; /* Center-align the button */
+  margin-top: 20px; /* Space above button */
+}
+
+/* Scoped Button styling */
+.register-container button {
+  width: 200px; /* Button width */
+  height: 40px; /* Button height */
+  background-color: rgb(19, 132, 117); /* Button color */
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px; /* Adjust font size for button */
-  margin-top: 20px; /* Space above the button */
+  font-size: 18px; /* Font size */
+  padding: 0; /* No additional padding */
+  box-sizing: border-box;
 }
 
-button:hover {
-  background-color: #218838;
+.register-container button:hover {
+  background-color: #0056b3; /* Hover color */
 }
 
-/* Error and success messages styling */
-.error, .success {
+/* Scoped Message styling */
+.register-container .message {
   text-align: center;
-  margin: 10px 0;
-  font-size: 16px; /* Adjust font size for messages */
-}
-
-.error {
-  color: red;
-}
-
-.success {
-  color: green;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
 }

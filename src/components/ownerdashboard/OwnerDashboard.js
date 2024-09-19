@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './OwnerDashboard.css';
+import { useUser } from '../../UserContext';
 import { useNavigate } from 'react-router-dom';
+import './OwnerDashboard.css';
 
-const OwnerDashboard = ({ user }) => {
+const OwnerDashboard = () => {
+  const { loggedInUser } = useUser();
   const [profileData, setProfileData] = useState(null);
   const [showProfilePanel, setShowProfilePanel] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
+  const [loadingRestaurants, setLoadingRestaurants] = useState(true);
+  const [errorRestaurants, setErrorRestaurants] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedInUser && loggedInUser.id) {
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
+        .then(response => {
+          setRestaurants(response.data);
+          setLoadingRestaurants(false);
+        })
+        .catch(error => {
+          setErrorRestaurants('Failed to fetch restaurants');
+          setLoadingRestaurants(false);
+        });
+    }
+  }, [loggedInUser]);
 
   const handleMyProfileClick = () => {
     setShowProfilePanel(!showProfilePanel);
 
-    if (!showProfilePanel) {
-      axios.get(`http://localhost:8081/user/get/${user.id}`)
+    if (!showProfilePanel && loggedInUser) {
+      axios.get(`http://localhost:8080/user/get/${loggedInUser.id}`)
         .then(response => {
           setProfileData(response.data);
         })
@@ -22,43 +42,85 @@ const OwnerDashboard = ({ user }) => {
     }
   };
 
-  const handleAddRestaurantClick = () => {
-    navigate('/addRestaurant', { state: { user: user } });
+  const handleMenuClick = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
   };
 
-  const handleViewAllRestaurantsClick = () => {
-    navigate('/viewAllRestaurants');
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
-  const handleAddCategoryClick = () => {
-    navigate('/addCategory');
+  const handleMyOrdersClick = () => {
+    navigate('/myOrder');
   };
 
-  const handleViewAllRestaurantCategoriesClick = () => {
-    navigate('/viewAllRestaurantCategories');
-  };
-
-  const handleUpdateCategoryClick = () => {
-    navigate('/updateCategory');
-  };
-
-  const handleAddFoodItemClick = () => {
-    navigate('/addFoodItem');
-  };
-
-  const handleViewFoodItemClick = () => {
-    navigate('/viewFoodItem');
-  };
-
-  const handleUpdateFoodItemClick = () => {
-    navigate('/updateFoodItem'); // Assuming the route for updating food items is /updateFoodItem
-  };
+  if (!loggedInUser) {
+    return <p>Please log in to access the dashboard.</p>;
+  }
 
   return (
     <div className="owner-dashboard">
-      <button className="my-profile-button" onClick={handleMyProfileClick}>
-        My Profile
-      </button>
+      <div className="sidebar">
+        <button className="sidebar-button" onClick={handleMyProfileClick}>My Profile</button>
+        <button className="sidebar-button" onClick={handleMyOrdersClick}>My Orders</button>
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('restaurant')}>
+          Restaurant
+        </button>
+        {activeMenu === 'restaurant' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={() => handleNavigation('/addRestaurant')}>Add Restaurant</button>
+          </div>
+        )}
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('category')}>
+          Category
+        </button>
+        {activeMenu === 'category' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={() => handleNavigation('/addCategory')}>Add Category</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/viewAllRestaurantCategories')}>View All Categories</button>
+          </div>
+        )}
+
+        <button className="sidebar-button" onClick={() => handleMenuClick('foodItem')}>
+          Food Item
+        </button>
+        {activeMenu === 'foodItem' && (
+          <div className="submenu">
+            <button className="submenu-button" onClick={() => handleNavigation('/addFoodItem')}>Add Food Item</button>
+            <button className="submenu-button" onClick={() => handleNavigation('/updateFoodItem')}>Update Food Item</button>
+            {/* Removed the View Food Item button */}
+          </div>
+        )}
+      </div>
+
+      <div className="content">
+        <h2>Your Restaurants</h2>
+        {loadingRestaurants && <p>Loading restaurants...</p>}
+        {errorRestaurants && <p>Error: {errorRestaurants}</p>}
+        {restaurants.length === 0 && !loadingRestaurants && !errorRestaurants && <p>No restaurants found.</p>}
+        
+        <div className="restaurant-grid">
+          {restaurants.map(restaurant => (
+            <div key={restaurant.id} className="restaurant-card">
+              {restaurant.imageData ? (
+                <img 
+                  src={`data:image/jpeg;base64,${restaurant.imageData}`} 
+                  alt={restaurant.restaurantName} 
+                  className="restaurant-image" 
+                />
+              ) : (
+                <div className="no-image">No Image</div>
+              )}
+              <h3>{restaurant.restaurantName}</h3>
+              <p><strong>Address:</strong> {restaurant.address}</p>
+              <p><strong>Contact:</strong> {restaurant.contactNumber}</p>
+              <p><strong>Description:</strong> {restaurant.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {showProfilePanel && (
         <div className={`profile-panel ${showProfilePanel ? 'visible' : ''}`}>
@@ -68,22 +130,10 @@ const OwnerDashboard = ({ user }) => {
               <p><strong>Name:</strong> {profileData.name}</p>
               <p><strong>Email:</strong> {profileData.email}</p>
               <p><strong>Phone Number:</strong> {profileData.phoneNo}</p>
-              <p><strong>Role:</strong> {profileData.role}</p>
             </div>
           )}
         </div>
       )}
-
-      <div className="grid-container">
-        <button className="grid-button" onClick={handleAddRestaurantClick}>Add Restaurant</button>
-        <button className="grid-button" onClick={handleAddCategoryClick}>Add Category</button>
-        <button className="grid-button" onClick={handleUpdateCategoryClick}>Update Category</button>
-        <button className="grid-button" onClick={handleAddFoodItemClick}>Add Food Item</button>
-        <button className="grid-button" onClick={handleUpdateFoodItemClick}>Update Food Item</button> {/* New Button */}
-        <button className="grid-button" onClick={handleViewFoodItemClick}>View Food Item</button>
-        <button className="grid-button" onClick={handleViewAllRestaurantsClick}>View All Restaurants</button>
-        <button className="grid-button" onClick={handleViewAllRestaurantCategoriesClick}>View All Restaurant Categories</button>
-      </div>
     </div>
   );
 };

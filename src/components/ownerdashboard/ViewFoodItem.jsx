@@ -1,8 +1,11 @@
+// src/components/viewfooditem/ViewFoodItem.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ViewFoodItem.css'; // You might need to create this CSS file
+import { useUser } from '../../UserContext'; // Import useUser hook
+import './ViewFoodItem.css';
 
-const ViewFoodItem = ({ userId }) => {
+const ViewFoodItem = () => {
+  const { loggedInUser } = useUser(); // Access logged-in user from context
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
   const [foodItems, setFoodItems] = useState([]);
@@ -11,8 +14,8 @@ const ViewFoodItem = ({ userId }) => {
   const [foodItemsLoading, setFoodItemsLoading] = useState(false);
 
   useEffect(() => {
-    if (userId) {
-      axios.get(`http://localhost:8080/restaurant/get/${userId}`)
+    if (loggedInUser && loggedInUser.id) {
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
         .then(response => {
           console.log('Restaurants API Response:', response.data); // Debugging log
           if (Array.isArray(response.data)) {
@@ -32,12 +35,12 @@ const ViewFoodItem = ({ userId }) => {
       setError('User ID is not available.');
       setLoading(false);
     }
-  }, [userId]);
+  }, [loggedInUser]);
 
   useEffect(() => {
     if (selectedRestaurantId) {
       setFoodItemsLoading(true);
-      axios.get(`http://localhost:8080/foodItem/getAll/${selectedRestaurantId}`)
+      axios.get(`http://localhost:8081/foodItem/getAll/${selectedRestaurantId}`)
         .then(response => {
           console.log('Food Items API Response:', response.data); // Debugging log
           if (Array.isArray(response.data)) {
@@ -63,34 +66,37 @@ const ViewFoodItem = ({ userId }) => {
     <div className="view-food-item">
       <h2>Food Items</h2>
 
-      <div className="restaurant-list">
+      <div className="restaurant-grid">
         <h3>All Restaurants</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Restaurant Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {restaurants.length > 0 ? (
-              restaurants.map(restaurant => (
-                <tr key={restaurant.id}>
-                  <td>{restaurant.restaurantName || 'No name available'}</td>
-                  <td>
-                    <button onClick={() => setSelectedRestaurantId(restaurant.id)}>
-                      View Food Items
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="2">No restaurants available</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        {restaurants.length > 0 ? (
+          <div className="restaurant-cards">
+            {restaurants.map(restaurant => (
+              <div
+                className="restaurant-card"
+                key={restaurant.id}
+                onClick={() => setSelectedRestaurantId(restaurant.id)}
+              >
+                {restaurant.imageData ? (
+                  <img
+                    src={`data:image/jpeg;base64,${restaurant.imageData}`}
+                    alt={restaurant.restaurantName}
+                    className="restaurant-image"
+                  />
+                ) : (
+                  <div className="no-image">No Image Available</div>
+                )}
+                <div className="restaurant-info">
+                  <h4>{restaurant.restaurantName || 'No name available'}</h4>
+                  <button className="view-food-button">
+                    View Food Items
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No restaurants available</p>
+        )}
       </div>
 
       {selectedRestaurantId && (
@@ -107,6 +113,7 @@ const ViewFoodItem = ({ userId }) => {
                   <th>Category</th>
                   <th>Price</th>
                   <th>Availability</th>
+                  <th>Image</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,8 +122,19 @@ const ViewFoodItem = ({ userId }) => {
                     <td>{item.foodName || 'No name available'}</td>
                     <td>{item.description || 'No description available'}</td>
                     <td>{item.categoryName || 'No category available'}</td>
-                    <td>{item.price != null ? `$${item.price.toFixed(2)}` : 'No price available'}</td>
+                    <td>{item.price != null ? `${item.price.toFixed(2)}` : 'No price available'}</td>
                     <td>{item.isAvailable ? 'Available' : 'Not Available'}</td>
+                    <td>
+                      {item.imageData ? (
+                        <img
+                          src={`data:image/jpeg;base64,${item.imageData}`}
+                          alt={item.foodName}
+                          className="food-item-image"
+                        />
+                      ) : (
+                        'No image available'
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

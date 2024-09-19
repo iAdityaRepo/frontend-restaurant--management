@@ -1,79 +1,138 @@
-/* Style for the add restaurant container */
+/* Styles specific to the AddRestaurant component */
+
+/* Container styling */
 .add-restaurant-container {
-    max-width: 600px; /* Set a maximum width */
-    margin: 20px auto; /* Center the form with margin */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Decrease the width of the form */
+  min-height: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Make sure the container is positioned relative */
 }
 
-/* Style for the form heading */
+/* Header styling */
 .add-restaurant-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333; /* Dark gray color */
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
 }
 
-/* Style for form labels */
-.add-restaurant-container label {
-    display: flex; /* Use flexbox for horizontal alignment */
-    align-items: center;
-    margin-bottom: 15px; /* Add space between fields */
-    font-weight: bold;
-    color: #333; /* Dark gray color */
+/* Form styling */
+.form {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Style for form labels spans */
-.add-restaurant-container label span {
-    flex: 1; /* Take up available space */
-    margin-right: 10px; /* Space between label and input */
-    font-weight: normal; /* Normal weight for the span */
-    color: #333; /* Dark gray color */
-    min-width: 120px; /* Minimum width for the label */
+/* Flex container for form groups */
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  width: 100%;
+  position: relative; /* Allows absolute positioning for error messages */
 }
 
-/* Style for form inputs and textarea */
-.add-restaurant-container input,
-.add-restaurant-container textarea {
-    flex: 2; /* Allow inputs to take up more space */
-    width: auto; /* Remove width constraint */
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px; /* Adjust margin to align with label */
+/* Label styling */
+.form-group .label {
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+  color: #555;
+  margin-right: 10px;
 }
 
-/* Style for form buttons */
-.add-restaurant-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50; /* Green */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px; /* Add some space above the button */
+/* Input container */
+.form-group .input {
+  width: 70%;
+  position: relative; /* Position relative for the error message to be positioned within the group */
+  padding-bottom: 30px; /* Increase space below for error message */
 }
 
-/* Hover effect for form buttons */
-.add-restaurant-container button:hover {
-    background-color: #45a049; /* Darker green for hover effect */
+/* Input and textarea styling */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
-/* Style for success and error messages */
-.add-restaurant-container .success,
-.add-restaurant-container .error {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 6px; /* Adjust font size if needed */
+  position: absolute; /* Absolute positioning to avoid affecting layout */
+  bottom: -25px; /* Position the error message below the input field */
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-transform: lowercase; /* Convert text to lowercase */
+  font-weight: normal; /* Ensure the text is not bold */
 }
 
-.add-restaurant-container .success {
-    color: #4CAF50; /* Green color for success message */
+/* Success message styling */
+.success {
+  color: green;
+  font-size: 16px;
+  text-align: center;
+  margin: 10px 0;
 }
 
-.add-restaurant-container .error {
-    color: #f44336; /* Red color for error message */
+/* Button styling */
+button {
+  width: 50%;
+  height: 50px; /* Adjust as needed */
+  padding: 10px;
+  background-color: rgb(19, 132, 117);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px; /* Adjust font size */
+  margin-top: 10px;
+  display: block; /* Ensure it is block-level to push errors below */
+  box-sizing: border-box;
+  margin-left: 150px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:active {
+  background-color: #004494;
+}
+
+/* Styles for the back button */
+.add-restaurant-container .back-button {
+  background-color: rgb(19, 132, 117);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute; /* Position absolutely within the container */
+  top: 20px; /* Margin from the top */
+  left: 20px; /* Margin from the left */
+}
+
+.add-restaurant-container .back-button:hover {
+  background-color: #0056b3;
+}
+
+.add-restaurant-container .back-button:active {
+  background-color: #004494;
+}
+
+/* Error display below the form */
+.error-container {
+  margin-top: 20px;
+  text-align: center;
 }

@@ -1,35 +1,41 @@
+/* Navbar styles */
 .navbar {
-    background-color: rgb(19, 132, 117); /* Orange color */
+    background-color: rgb(19, 132, 117); /* Background color */
     padding: 10px;
+    max-width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 2.5rem;
 }
 
+/* Navbar brand styles */
 .navbar-brand {
     display: flex;
     align-items: center;
 }
 
 .navbar-icon {
-    width: 40px; /* Adjust size as needed */
-    height: 40px; /* Adjust size as needed */
-    border-radius: 50%; /* Optional: makes the image round */
-    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 0; /* Ensure the logo is not rounded */
+    margin-right: 10px; /* Add a bit of space between the icon and title */
 }
 
 .navbar-title {
     font-size: 1.5em;
     color: orange;
     font-weight: bold;
+    margin: 0; /* Remove margin to ensure tight alignment with icon */
 }
 
+/* Navbar menu styles */
 .navbar-menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
 }
 
 .navbar-menu li {
@@ -44,9 +50,53 @@
 }
 
 .navbar-menu li a:hover {
-    color: darkorange; /* Change color to a darker shade */
-    font-size: 1.2em; /* Slightly increase font size */
-    font-weight: bold; /* Make font bold */
-    text-decoration: underline; /* Underline the text */
-    transform: scale(1.1); /* Slightly increase size */
+    color: darkorange;
+    font-weight: bold;
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+/* Cart icon styles */
+.cart-icon-link {
+    color: white;
+    position: relative;
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.cart-icon-link:hover {
+    color: orange;
+    transform: scale(1.1); /* Scale up the icon on hover */
+}
+
+/* Logout icon styles */
+.logout-icon {
+    background-color: red; /* Red background */
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-icon:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+.logout-button-icon {
+    color: white;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+    .navbar-menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-menu li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
 }

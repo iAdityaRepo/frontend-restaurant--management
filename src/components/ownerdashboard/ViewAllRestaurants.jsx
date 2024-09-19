@@ -1,18 +1,18 @@
-// src/components/ViewAllRestaurants.jsx
+// src/components/viewallrestaurants/ViewAllRestaurants.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../../UserContext'; // Import useUser hook
 import './ViewAllRestaurants.css';
 
-// Assuming userId is passed as a prop or retrieved from context/state
-const ViewAllRestaurants = ({ userId }) => {
+const ViewAllRestaurants = () => {
+  const { loggedInUser } = useUser(); // Access logged-in user from context
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (userId) {
-      // Replace the URL with your actual endpoint
-      axios.get(`http://localhost:8080/restaurant/get/${userId}`)
+    if (loggedInUser && loggedInUser.id) {
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
         .then(response => {
           setRestaurants(response.data);
           setLoading(false);
@@ -25,7 +25,7 @@ const ViewAllRestaurants = ({ userId }) => {
       setError('User ID is missing.');
       setLoading(false);
     }
-  }, [userId]);
+  }, [loggedInUser]);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">Error: {error}</div>;
@@ -35,6 +35,15 @@ const ViewAllRestaurants = ({ userId }) => {
     <div className="restaurant-list">
       {restaurants.map(restaurant => (
         <div key={restaurant.id} className="restaurant-card">
+          {restaurant.imageData ? (
+            <img 
+              src={`data:image/jpeg;base64,${restaurant.imageData}`} 
+              alt={restaurant.restaurantName} 
+              className="restaurant-image" 
+            />
+          ) : (
+            <div className="no-image">No Image</div>
+          )}
           <h2>{restaurant.restaurantName}</h2>
           <p><strong>Address:</strong> {restaurant.address}</p>
           <p><strong>Contact:</strong> {restaurant.contactNumber}</p>

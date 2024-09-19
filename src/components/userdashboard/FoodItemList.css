@@ -1,0 +1,217 @@
+/* General food item list styles */
+.food-item-list {
+  padding: 1rem;
+  overflow-x: scroll;
+}
+
+/* Table and food item rows */
+.food-item-list table {
+  width: calc(100% - 40px); /* Adjust width to account for increased margins */
+  margin: 20px auto; /* Increased margin on top and auto for left and right */
+  border-collapse: collapse;
+  table-layout: fixed; /* Ensures table takes up the full width and columns are evenly distributed */
+}
+
+.food-item-list th, .food-item-list td {
+  padding: 2px; /* Reduced padding for a more compact look */
+  border: 1px solid #ddd;
+  text-align: left;
+  overflow: hidden; /* Ensures that content doesn't overflow its cell */
+  line-height: 1.2; /* Decreases the line height for a more compact appearance */
+}
+
+.food-item-list th {
+  background-color: #f4f4f4;
+  width: 15rem;
+}
+
+/* Action button styles */
+.food-item-list .action-cell {
+  text-align: left; /* Left-align the action buttons */
+}
+
+.food-item-list .action-cell button,
+.cart-item-list .action-cell button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 8px 14px; /* Slightly increased padding for a better fit */
+  font-size: 14px; /* Slightly smaller font size */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+  margin-right: 10px; /* Adjust the margin for spacing */
+}
+
+.food-item-list .action-cell button:hover,
+.cart-item-list .action-cell button:hover {
+  background-color: #e65c00;
+}
+
+/* Improved remove button styles */
+#remove-from-cart-btn {
+  background-color: #e60000; /* Red color for the remove button */
+  padding: 6px 10px;
+}
+
+#remove-from-cart-btn:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Increase width and left-align quantity input */
+.food-item-list input[type="number"] {
+  width: 80px; /* Adjusted width */
+  height: 35px;
+  font-size: 16px; /* Reduced font size for better fit */
+  text-align: left;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Cart item list styles */
+.cart-item-list {
+  margin-top: 20px;
+}
+
+/* Cart item table */
+.cart-item-list table {
+  width: calc(100% - 40px); /* Adjust width to account for increased margins */
+  margin: 20px auto; /* Increased margin on top and auto for left and right */
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.cart-item-list th, .cart-item-list td {
+  padding: 6px; /* Slightly increased padding */
+  border: 1px solid #ddd;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.cart-item-list th {
+  background-color: #f4f4f4;
+}
+
+/* Adjust width for specific columns in cart items */
+.cart-item-list th:nth-child(1),
+.cart-item-list td:nth-child(1) {
+  width: 120px; /* Adjusted width */
+}
+
+.cart-item-list th:nth-child(2),
+.cart-item-list td:nth-child(2) {
+  width: 150px; /* Adjusted width */
+}
+
+/* Address and place order buttons */
+.choose-address {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px; /* Add space between elements */
+}
+
+.choose-address label {
+  margin-right: 10px;
+}
+
+.choose-address select {
+  margin-right: 10px;
+  padding: 8px 12px; /* Added padding for select element */
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.choose-address button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 10px 16px; /* Adjusted padding for a better fit */
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.choose-address button:hover {
+  background-color: #e65c00;
+}
+
+/* Responsive styling for cart form */
+.cart-item-list {
+  max-width: 65rem;
+  margin: 0 auto;
+}
+
+/* Style for "Add to Cart" button */
+table tbody tr td #add-to-cart-btn {
+  margin: 0;
+  width: 12rem;
+  background-color: #28a745; /* Green color for Add to Cart */
+  padding: 8px 12px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+table tbody tr td #add-to-cart-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Ensures better spacing between items and responsive behavior */
+.food-item-list .food-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.food-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.food-item-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.food-item-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.food-item-price {
+  font-size: 12px;
+  color: #ff6600;
+}
+
+.cart-remove-btn {
+  margin: 0;
+  font-size: 1rem;
+  width: 7rem;
+}
+
+.address-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 4rem;
+}
+
+#address-select {
+  font-size: 1.5rem;
+}

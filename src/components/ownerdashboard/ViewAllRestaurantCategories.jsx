@@ -1,154 +1,197 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../../UserContext';
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
 import './ViewAllRestaurantCategories.css';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
 
-const ViewAllRestaurantCategories = ({ userId }) => {
+const ViewAllRestaurantCategories = () => {
+  const { loggedInUser } = useUser();
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [editingCategoryId, setEditingCategoryId] = useState(null);
+  const [editedCategoryName, setEditedCategoryName] = useState('');
+  const [formError, setFormError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    if (userId) {
-      axios.get(`http://localhost:8080/restaurant/get/${userId}`)
+    if (loggedInUser && loggedInUser.id) {
+      setFormError(null);
+      setLoading(true);
+      axios.get(`http://localhost:8081/restaurant/get/${loggedInUser.id}`)
         .then(response => {
-          console.log('Restaurants API Response:', response.data); // Debugging log
           if (Array.isArray(response.data)) {
             setRestaurants(response.data);
           } else {
-            console.error('Unexpected data format:', response.data);
-            setError('Failed to fetch restaurants: Unexpected data format.');
+            const message = 'Failed to fetch restaurants: Unexpected data format.';
+            setFormError(message);
           }
           setLoading(false);
         })
         .catch(error => {
-          console.error("There was an error fetching the restaurants!", error);
-          setError('Failed to fetch restaurants.');
+          const message = 'Failed to fetch restaurants.';
+          setFormError(message);
           setLoading(false);
         });
     } else {
-      setError('User ID is not available.');
+      const message = 'User ID is not available.';
+      setFormError(message);
       setLoading(false);
     }
-  }, [userId]);
+  }, [loggedInUser]);
 
   useEffect(() => {
     if (selectedRestaurantId) {
       setCategoriesLoading(true);
-      axios.get(`http://localhost:8080/category/getAll/${selectedRestaurantId}`)
+      axios.get(`http://localhost:8081/category/getAll/${selectedRestaurantId}`)
         .then(response => {
-          console.log('Categories API Response:', response.data); // Debugging log
           if (Array.isArray(response.data)) {
             setCategories(response.data);
           } else {
-            console.error('Unexpected data format:', response.data);
-            setError('Failed to fetch categories: Unexpected data format.');
+            const message = 'Failed to fetch categories: Unexpected data format.';
+            setFormError(message);
           }
           setCategoriesLoading(false);
         })
         .catch(error => {
-          console.error("There was an error fetching the categories!", error);
-          setError('Failed to fetch categories.');
+          const message = 'Failed to fetch categories.';
+          setFormError(message);
           setCategoriesLoading(false);
         });
     }
   }, [selectedRestaurantId]);
 
-  const handleCategoryUpdate = (categoryId) => {
-    const newCategoryName = prompt('Enter new category name:');
-    if (newCategoryName) {
-      axios.put(`http://localhost:8080/category/update/${categoryId}`, { name: newCategoryName })
-        .then(response => {
-          if (response.status === 200) {
-            setCategories(categories.map(cat =>
-              cat.id === categoryId ? { ...cat, name: newCategoryName } : cat
-            ));
-            alert('Category updated successfully!');
-          } else {
-            setError('Failed to update category. Response status: ' + response.status);
-          }
-        })
-        .catch(error => {
-          console.error("There was an error updating the category!", error);
-          setError('Failed to update category.');
-        });
-    }
+  const handleCategoryEdit = (categoryId, currentName) => {
+    setEditingCategoryId(categoryId);
+    setEditedCategoryName(currentName);
   };
 
+  const handleCategoryNameChange = (e) => {
+    setEditedCategoryName(e.target.value);
+  };
+
+  const handleCategoryUpdate = (categoryId) => {
+    if (editedCategoryName.trim() === '') {
+      const message = 'Category name cannot be empty.';
+      setFormError(message);
+      return;
+    }
+
+    axios.put(`http://localhost:8081/category/update/${categoryId}`, { name: editedCategoryName })
+      .then(response => {
+        if (response.status === 200) {
+          setCategories(categories.map(cat =>
+            cat.id === categoryId ? { ...cat, name: editedCategoryName } : cat
+          ));
+          setEditingCategoryId(null);
+          const message = 'Category updated successfully!';
+          setSuccessMessage(message);
+        } else {
+          const message = 'Failed to update category. Response status: ' + response.status;
+          setFormError(message);
+        }
+      })
+      .catch(error => {
+        const errorMessage = error.response?.data?.message || 'Failed to update category.';
+        setFormError(errorMessage);
+      });
+  };
+
+  useEffect(() => {
+    if (formError) {
+      toast.error(formError); // Display toast for error
+      setFormError(''); // Clear error message after displaying
+    }
+  }, [formError]);
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage); // Display toast for success
+      setSuccessMessage(''); // Clear success message after displaying
+    }
+  }, [successMessage]);
+
   if (loading) return <div className="loading">Loading restaurants...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <div className="view-all-restaurant-categories">
-      <h2>Restaurants and Categories</h2>
+    <>
+      <div className="view-all-restaurant-categories">
+        <h2>Restaurants and Categories</h2>
 
-      <div className="restaurant-list">
-        <h3>All Restaurants</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Restaurant Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="restaurant-dropdown">
+          <label htmlFor="restaurant-select">Select Restaurant:</label>
+          <select
+            id="restaurant-select"
+            value={selectedRestaurantId || ''}
+            onChange={(e) => setSelectedRestaurantId(e.target.value)}
+          >
+            <option value="">Select a restaurant</option>
             {restaurants.length > 0 ? (
               restaurants.map(restaurant => (
-                <tr key={restaurant.id}>
-                  <td>{restaurant.restaurantName || 'No name available'}</td>
-                  <td>
-                    <button onClick={() => setSelectedRestaurantId(restaurant.id)}>
-                      View Categories
-                    </button>
-                  </td>
-                </tr>
+                <option key={restaurant.id} value={restaurant.id}>
+                  {restaurant.restaurantName || 'No name available'}
+                </option>
               ))
             ) : (
-              <tr>
-                <td colSpan="2">No restaurants available</td>
-              </tr>
+              <option value="">No restaurants available</option>
             )}
-          </tbody>
-        </table>
-      </div>
-
-      {selectedRestaurantId && (
-        <div className="category-list">
-          <h3>Categories for Selected Restaurant</h3>
-          {categoriesLoading ? (
-            <div className="loading">Loading categories...</div>
-          ) : categories.length > 0 ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>Category Name</th>
-                  <th>Category ID</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {categories.map(category => (
-                  <tr key={category.id}>
-                    <td>{category.name || 'No name available'}</td>
-                    <td>{category.id || 'No ID available'}</td>
-                    <td>
-                      <button onClick={() => handleCategoryUpdate(category.id)}>
-                        Update Name
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No categories available for the selected restaurant.</p>
-          )}
+          </select>
         </div>
-      )}
-    </div>
+
+        {selectedRestaurantId && (
+          <div className="category-list">
+            <h3>Categories for Selected Restaurant</h3>
+            {categoriesLoading ? (
+              <div className="loading">Loading categories...</div>
+            ) : categories.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {categories.map(category => (
+                    <tr key={category.id}>
+                      <td>
+                        {editingCategoryId === category.id ? (
+                          <input
+                            type="text"
+                            value={editedCategoryName}
+                            onChange={handleCategoryNameChange}
+                          />
+                        ) : (
+                          category.name || 'No name available'
+                        )}
+                      </td>
+                      <td>
+                        {editingCategoryId === category.id ? (
+                          <button onClick={() => handleCategoryUpdate(category.id)}>
+                            Save
+                          </button>
+                        ) : (
+                          <button onClick={() => handleCategoryEdit(category.id, category.name)}>
+                            Edit
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No categories available for the selected restaurant.</p>
+            )}
+          </div>
+        )}
+      </div>
+      <ToastContainer /> 
+    </>
   );
-}
+};
 
 export default ViewAllRestaurantCategories;

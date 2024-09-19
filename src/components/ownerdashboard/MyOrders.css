@@ -1,0 +1,122 @@
+/* General styles for MyOrders */
+.my-orders {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative; /* Ensure that the button's absolute positioning is relative to this container */
+}
+
+.my-orders h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.restaurant-list,
+.order-list {
+  margin-bottom: 20px;
+}
+
+.restaurant-list select {
+  width: 100%;
+  padding: 10px;
+  font-size: 23px;
+}
+
+/* Order cards layout */
+.order-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+}
+
+.order-card h4 {
+  margin-top: 0;
+}
+
+.order-card .order-details ul {
+  padding-left: 20px;
+}
+
+.order-card .order-details li {
+  margin-bottom: 5px;
+}
+
+.order-card .status {
+  font-weight: bold;
+}
+
+.order-card .status.cancelled {
+  color: red;
+}
+
+.order-card .status.confirmed {
+  color: green;
+}
+
+.order-card .status.pending {
+  color: orange;
+}
+
+button.complete {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.complete:hover {
+  background-color: #218838;
+}
+
+button.complete:active {
+  background-color: #1e7e34;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+}
+
+/* Adjusted styles for the back button */
+.back-button {
+  background-color: rgb(19, 132, 117);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0; /* Remove bottom margin */
+  width: 150px; /* Set a specific width for the button */
+  position: absolute; /* Position the button absolutely */
+  top: 20px; /* Distance from the top */
+  left: 20px; /* Distance from the left */
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.back-button:active {
+  background-color: #004494;
+}

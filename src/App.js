@@ -1,79 +1,61 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import Home from './components/home/Home';
 import Login from './components/login/Login';
-import Register from './components/register/Register'; 
+import Register from './components/register/Register';
 import OwnerDashboard from './components/ownerdashboard/OwnerDashboard';
 import UserDashboard from './components/userdashboard/UserDashboard';
 import AddRestaurant from './components/ownerdashboard/AddRestaurant';
 import ViewAllRestaurants from './components/ownerdashboard/ViewAllRestaurants';
 import AddCategory from './components/ownerdashboard/AddCategory';
 import ViewAllRestaurantCategories from './components/ownerdashboard/ViewAllRestaurantCategories';
-import UpdateCategory from './components/ownerdashboard/UpdateCategory';
 import AddFoodItem from './components/ownerdashboard/AddFoodItem';
 import ViewFoodItem from './components/ownerdashboard/ViewFoodItem';
-import UpdateFoodItem from './components/ownerdashboard/UpdateFoodItem'; // Import the UpdateFoodItem component
+import UpdateFoodItem from './components/ownerdashboard/UpdateFoodItem';
+import MyOrders from './components/ownerdashboard/MyOrders';
+import ViewMenu from './components/home/ViewMenu'; // Import ViewMenu component
+import Cart from './components/userdashboard/Cart';
+import FilledCart from './components/userdashboard/FilledCart'; // Import FilledCart component
+import FoodItemList from './components/userdashboard/FoodItemList';
+import { UserProvider } from './UserContext'; // Import UserProvider
+import ContactUsPage from './components/contactus/ContactUsPage'; // Import ContactUsPage component
+import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  const handleLoginSuccess = (userOutDto) => {
-    console.log('Login successful:', userOutDto);
-    setLoggedInUser(userOutDto);
-  };
-
   return (
-    <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-        <Route path="/register" element={<Register />} />
-        <Route 
-          path="/ownerDashboard" 
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <OwnerDashboard user={loggedInUser} /> : <Navigate to="/login" />}
-        />
-        <Route 
-          path="/userDashboard" 
-          element={loggedInUser && loggedInUser.role === 'USER' ? <UserDashboard user={loggedInUser} /> : <Navigate to="/login" />}
-        />
-        <Route 
-          path="/addRestaurant" 
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <AddRestaurant userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route 
-          path="/viewAllRestaurants" 
-          element={loggedInUser ? <ViewAllRestaurants userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route 
-          path="/addCategory" 
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <AddCategory userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/viewAllRestaurantCategories"
-          element={loggedInUser ? <ViewAllRestaurantCategories userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/updateCategory"
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <UpdateCategory userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/addFoodItem"
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <AddFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/viewFoodItem"
-          element={loggedInUser ? <ViewFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/updateFoodItem"
-          element={loggedInUser && loggedInUser.role === 'OWNER' ? <UpdateFoodItem userId={loggedInUser.id} /> : <Navigate to="/login" />}
-        />
-      </Routes>
-    </div>
+    <UserProvider>
+      <div className="App">
+      <ToastContainer />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/ownerDashboard" element={<OwnerDashboard />} />
+          <Route path="/userDashboard" element={<UserDashboard />} />
+          <Route path="/addRestaurant" element={<AddRestaurant />} />
+          <Route path="/viewAllRestaurants" element={<ViewAllRestaurants />} />
+          <Route path="/addCategory" element={<AddCategory />} />
+          <Route path="/viewAllRestaurantCategories" element={<ViewAllRestaurantCategories />} />
+          <Route path="/addFoodItem" element={<AddFoodItem />} />
+          <Route path="/viewFoodItem" element={<ViewFoodItem />} />
+          <Route path="/updateFoodItem" element={<UpdateFoodItem />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/food-and-cart/:restaurantId" element={<FoodItemList />} /> {/* Updated route for FoodItemList */}
+          <Route path="/filledCart" element={<FilledCart />} /> {/* Route for FilledCart */}
+          <Route path="/myOrder" element={<MyOrders />} /> {/* Route for MyOrders */}
+          <Route path="/viewMenu/:restaurantId" element={<ViewMenu />} /> {/* Route for ViewMenu */}
+          <Route path="/contact" element={<ContactUsPage />} /> {/* Route for ContactUsPage */}
+          <Route path="*" element={<Navigate to="/" />} /> {/* Redirect to home for undefined routes */}
+        </Routes>
+      </div>
+    </UserProvider>
   );
 }
 

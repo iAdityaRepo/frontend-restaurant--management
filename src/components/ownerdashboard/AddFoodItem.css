@@ -1,84 +1,139 @@
-/* AddFoodItem.css */
-
+/* Container styling */
 .add-food-item-container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added for positioning the back button */
 }
 
-h2 {
-  text-align: center;
+/* Header styling */
+.add-food-item-container h2 {
   margin-bottom: 20px;
+  text-align: center;
   color: #333;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-span {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 16px; /* Larger font size */
-  margin-right: 15px; /* More space between label and input */
-  width: 200px; /* Adjust width as needed */
-  color: #555;
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select,
-input[type="file"] {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Form styling */
+.form {
+  width: 100%;
+  padding: 20px;
   box-sizing: border-box;
 }
 
-textarea {
-  resize: vertical;
+/* Flex container for form groups */
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+  position: relative;
 }
 
-input[type="checkbox"] {
+/* Label styling */
+.form-group .label {
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+  color: #555;
   margin-right: 10px;
 }
 
+/* Input container */
+.form-group .input {
+  width: 70%;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+/* Input and textarea styling */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  box-sizing: border-box;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+}
+
+/* Success message styling */
+.success {
+  color: green;
+  font-size: 14px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Button styling */
 button {
-  background-color: #28a745;
+  width: 50%;
+  padding: 12px;
+  background-color: rgb(19, 132, 117); /* Color for Add Food Item and Back buttons */
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  font-size: 27px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #45a049;
 }
 
-.success {
-  color: #28a745;
-  text-align: center;
-  margin-top: 15px;
+button:active {
+  background-color: #004494;
 }
 
-.error {
-  color: #dc3545;
-  text-align: center;
-  margin-top: 15px;
+/* Back button positioning */
+.back-button {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  width: auto; /* Width for back button */
+  padding: 10px 20px; /* Padding adjustment for back button */
+  font-size: 16px; /* Font size for back button */
+}
+
+/* Upload image and Add Food Item buttons on separate lines */
+.upload-and-submit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Upload image input */
+.upload-and-submit-container input[type="file"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .form-group .label, .form-group .input {
+    width: 100%;
+    text-align: left;
+  }
+
+  .form-group .label {
+    margin-bottom: 5px;
+  }
 }
